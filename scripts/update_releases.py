@@ -48,6 +48,7 @@ def main():
 
         releases.append({
             "id": album["id"],
+            "type": album.get("album_type", "single"),
             "title": album["name"],
             "date": album["release_date"],
             "artists": artists,
