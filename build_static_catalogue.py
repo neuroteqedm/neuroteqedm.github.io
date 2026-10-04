@@ -82,6 +82,7 @@ def main():
             "artwork": artwork,
             "url": release.get("url", ""),
             "artists": [{"name": name} for name in release.get("artists", [])],
+            "tracklist": tracks,
         })
         track_dir = SITE / "api" / "releases" / release["id"]
         track_dir.mkdir(parents=True, exist_ok=True)
