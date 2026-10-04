@@ -27,7 +27,7 @@ def main():
     headers = {"Authorization": f"Bearer {token}"}
 
     albums = []
-    url = f"{API}/artists/{ARTIST_ID}/albums?include_groups=album,single,compilation&market=US&limit=50"
+    url = f"{API}/artists/{ARTIST_ID}/albums?include_groups=album,single,compilation&market=US&limit=10"
     while url:
         page = request(url, headers)
         albums.extend(page["items"])
