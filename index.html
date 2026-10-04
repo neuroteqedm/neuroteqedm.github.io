@@ -144,12 +144,12 @@
     const list = document.querySelector('#release-list');
     fetch('releases.json').then(r => r.json()).then(releases => {
       list.innerHTML = releases.map((release, i) => `
-        <article class="release${i === 0 ? ' open' : ''}">
+        <article class="release">
           <a class="cover-link" href="${release.url}" target="_blank" rel="noopener noreferrer" aria-label="Open ${release.title} on Spotify"><img class="cover" src="${release.cover}" alt="${release.title} cover" loading="${i < 4 ? 'eager' : 'lazy'}"></a>
           <div class="release-info">
             <div class="release-title">${release.title}</div>
             <div class="release-meta">${release.artists.join(', ')}${release.date ? ' · ' + prettyDate(release.date) : ''}</div>
-            <button class="track-toggle" type="button" aria-expanded="${i === 0}">Tracklist</button>
+            <button class="track-toggle" type="button" aria-expanded="false">Tracklist</button>
             <ol class="tracks">${release.tracks.map(track => `<li>${track}</li>`).join('')}</ol>
           </div>
         </article>`).join('');
