@@ -5,7 +5,6 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parent
 SITE = Path.cwd() / "_site"
 RELEASES_FILE = ROOT / "releases.json"
@@ -24,13 +23,13 @@ def save_artwork(release):
             suffix = mimetypes.guess_extension(content_type) or ".jpg"
             if suffix == ".jpe":
                 suffix = ".jpg"
-            target = SITE / "images" / "releases" / f"{release['id']}{suffix}"
+            target = SITE / "images" / "releases" / "{}{}".format(release["id"], suffix)
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(response.read(12_000_001))
             if target.stat().st_size > 12_000_000:
                 target.unlink(missing_ok=True)
                 return url
-            return f"/images/releases/{target.name}"
+            return "/images/releases/{}".format(target.name)
     except Exception:
         return url
 
@@ -38,7 +37,7 @@ def save_artwork(release):
 def normalize_track(track, release, index):
     if isinstance(track, str):
         return {
-            "id": f"{release['id']}-{index}",
+            "id": "{}-{}".format(release["id"], index),
             "title": track,
             "artists": [{"name": name} for name in release.get("artists", [])],
             "durationMs": 0,
@@ -47,7 +46,7 @@ def normalize_track(track, release, index):
             "url": release.get("url", ""),
         }
     return {
-        "id": track.get("id") or f"{release['id']}-{index}",
+        "id": track.get("id") or "{}-{}".format(release["id"], index),
         "title": track.get("title") or track.get("name", ""),
         "artists": track.get("artists", []),
         "durationMs": track.get("durationMs", track.get("duration_ms", 0)),
@@ -55,6 +54,49 @@ def normalize_track(track, release, index):
         "disc": track.get("disc", track.get("disc_number", 1)),
         "url": track.get("url") or track.get("external_urls", {}).get("spotify", release.get("url", "")),
     }
+
+
+def patch_exported_site():
+    chunks = SITE / "_next" / "static" / "chunks"
+    old_name = "layout-segment-context-D-I1VA2F.js"
+    new_name = "layout-context-D-I1VA2F.js"
+    old_chunk = chunks / old_name
+    new_chunk = chunks / new_name
+
+    if old_chunk.exists():
+        chunk_text = old_chunk.read_text(encoding="utf-8")
+        chunk_text = chunk_text.replace(
+            'import{i as n}from"./index-Neuroteq2.js";',
+            "var n=()=>null;",
+        )
+        new_chunk.write_text(chunk_text, encoding="utf-8")
+        old_chunk.unlink()
+    elif new_chunk.exists():
+        chunk_text = new_chunk.read_text(encoding="utf-8")
+        chunk_text = chunk_text.replace(
+            'import{i as n}from"./index-Neuroteq2.js";',
+            "var n=()=>null;",
+        )
+        new_chunk.write_text(chunk_text, encoding="utf-8")
+
+    replacements = {
+        old_name: new_name,
+        "https://neuroteq.xyz/": "https://backzone99.tb.ru/",
+        "https://music.apple.com/ru/artist/backzone99/1715799081": "https://music.apple.com/us/artist/neuroteq/6811395218",
+        "https://musixmatch.com/artist/backzone99": "https://musixmatch.com/artist/neuroteq",
+    }
+    for path in SITE.rglob("*"):
+        if not path.is_file() or path.suffix not in {".html", ".js", ".json", ".css"}:
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        updated = text
+        for old, new in replacements.items():
+            updated = updated.replace(old, new)
+        if updated != text:
+            path.write_text(updated, encoding="utf-8")
 
 
 def main():
@@ -94,6 +136,7 @@ def main():
     api_file = SITE / "api" / "releases.json"
     api_file.parent.mkdir(parents=True, exist_ok=True)
     api_file.write_text(json.dumps(catalogue, ensure_ascii=False), encoding="utf-8")
+    patch_exported_site()
 
 
 if __name__ == "__main__":
