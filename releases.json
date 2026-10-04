@@ -13,15 +13,15 @@
       "Exponent",
       "Malware",
       "Dream"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "79P2APc0VfivF7i3Ei0nZ8",
     "title": "Toxicosis",
     "date": "2026-09-06",
     "artists": [
-      "Neuroteq",
-      "GonL"
+      "Neuroteq"
     ],
     "url": "https://open.spotify.com/album/79P2APc0VfivF7i3Ei0nZ8",
     "cover": "https://i.scdn.co/image/ab67616d0000b273a929f209b2a22b72f047740f",
@@ -38,21 +38,22 @@
       "Bounce That!",
       "Lockjaw",
       "Blow It Up! (Detonate It)"
-    ]
+    ],
+    "type": "album"
   },
   {
     "id": "6mBbyIPFJ8FEpnRxs0nWtJ",
     "title": "Syntax",
     "date": "2026-08-26",
     "artists": [
-      "Neuroteq",
-      "GonL"
+      "Neuroteq"
     ],
     "url": "https://open.spotify.com/album/6mBbyIPFJ8FEpnRxs0nWtJ",
     "cover": "https://i.scdn.co/image/ab67616d0000b27328762710bd68cb2230bf4c37",
     "tracks": [
       "Syntax"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "3i6nnqXlzh7epjyIsLZ3fu",
@@ -65,7 +66,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b2733addfbf1cb810724e37a232b",
     "tracks": [
       "Spirit"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "0KJhy0YYLAw1zf292tvtQg",
@@ -78,7 +80,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b273ef5be1a0c51a4aecd6b78a96",
     "tracks": [
       "Resperance"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "0daLMbG30Mfr2FmLMU56hs",
@@ -91,7 +94,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b2730ca1b07cb45c7a16d5658af2",
     "tracks": [
       "Disequilibrium"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "6VjRwPP5sr74HmjGFEtMwS",
@@ -104,7 +108,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b273c3afe32d92b16f31ec51b390",
     "tracks": [
       "Revenge"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "4lohqXltMgMRo0iIbWrS2V",
@@ -122,7 +127,8 @@
       "santa claus",
       "forthy",
       "03:17 - VIP"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "3ayZYQHGeYs932EP9wK4ZH",
@@ -135,7 +141,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b273e88e1734b454162f021501a4",
     "tracks": [
       "No Mercy"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "6mELXj4rauo6BUhZUk57o7",
@@ -148,7 +155,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b27394d925e31df546c5ff18e409",
     "tracks": [
       "Willpower"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "6MD1uPeQdqeo6JohvrYFea",
@@ -161,7 +169,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b27313cd86566039ef762d0110b1",
     "tracks": [
       "santa claus"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "1LJONn5kD433W8bC3O28w5",
@@ -174,7 +183,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b2730172d8b6acf0d5b3f86b59f6",
     "tracks": [
       "Stereo Madness - Rock Version"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "7CSNlwTy6AMFPbNqbm5M1e",
@@ -191,7 +201,8 @@
       "Звездный путь",
       "Звездный путь - Instrumental",
       "За орбитой сна"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "74yqLcUE6R6VHEnZNyJw3w",
@@ -204,7 +215,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b2738c527349a63084437ddaf957",
     "tracks": [
       "Rectangle"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "6w74rzUTiJG8oyMp5SoejH",
@@ -224,7 +236,8 @@
       "korg tekk - 136",
       "after drugs",
       "Bright Lights"
-    ]
+    ],
+    "type": "album"
   },
   {
     "id": "0fxqlFcwb0jYCuCpBiV0fQ",
@@ -246,7 +259,8 @@
       "Extralax",
       "XLR Saw",
       "Stunt X"
-    ]
+    ],
+    "type": "album"
   },
   {
     "id": "2BOkZCh41omODr7k9xCBY8",
@@ -259,15 +273,15 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b273e8bdb6a9d09da784b3ec77e2",
     "tracks": [
       "03:17"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "7iWiV9ANefIT6PhcYqSpKR",
     "title": "Average 2016x, Pt. 3",
     "date": "2026-02-14",
     "artists": [
-      "Neuroteq",
-      "Zoink"
+      "Neuroteq"
     ],
     "url": "https://open.spotify.com/album/7iWiV9ANefIT6PhcYqSpKR",
     "cover": "https://i.scdn.co/image/ab67616d0000b273cb6610b4ec92c4913ac94f5a",
@@ -283,7 +297,8 @@
       "relaxic",
       "lafakff xD(",
       "Syntheholic"
-    ]
+    ],
+    "type": "album"
   },
   {
     "id": "4InGYW5uHGUIEltDhKM5G7",
@@ -302,7 +317,8 @@
       "IDM Musique",
       "Take My Higher",
       "Bring to Zero"
-    ]
+    ],
+    "type": "album"
   },
   {
     "id": "0A6XTTh8Q61WuVadlxFRc1",
@@ -320,7 +336,8 @@
       "Eleph?nt",
       "Incomprehensibility",
       "Swear"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "5Xo7tUtJBjWZ3WdA8Hp9zE",
@@ -340,7 +357,8 @@
       "CO'N'ZONE",
       "Шизофрения",
       "Core - 77 Edition"
-    ]
+    ],
+    "type": "album"
   },
   {
     "id": "2EkvgLefLRgZaJsGzMX22e",
@@ -353,7 +371,8 @@
     "cover": "https://i.scdn.co/image/ab67616d0000b273f15727697789a215761d2e03",
     "tracks": [
       "Oh, Fuck"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "0ZZ27xeU7KPrAC6PKJN4Cj",
@@ -368,7 +387,8 @@
       "under the cover",
       "under the cover - Extended Mix",
       "under the cover 2"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "0fCWnC8bXgpDayuOeIBrUW",
@@ -385,7 +405,8 @@
       "V Gotta Hell",
       "VI Screwdriver Hell",
       "VII Condition Zero"
-    ]
+    ],
+    "type": "single"
   },
   {
     "id": "35JpucjhKsTR1BrRWcsReW",
@@ -405,7 +426,8 @@
       "Step 1",
       "AFX Reborn",
       "Should to be an ambient"
-    ]
+    ],
+    "type": "album"
   },
   {
     "id": "3qGnpkb2NwVyryoZ51e8Vn",
@@ -427,7 +449,8 @@
       "В ПОМОЩЬ FL STUDIO!",
       "память...",
       "КВАЗАР"
-    ]
+    ],
+    "type": "album"
   },
   {
     "id": "0uRlcJoKnLBYnJ0bRCYO3w",
@@ -451,6 +474,7 @@
       "ЭЙФОРИЯ",
       "синтеТикА",
       "ТЕХНОДРОМ"
-    ]
+    ],
+    "type": "album"
   }
 ]
