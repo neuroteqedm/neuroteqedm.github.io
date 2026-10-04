@@ -54,7 +54,15 @@ def main():
             "artists": artists,
             "url": album["external_urls"]["spotify"],
             "cover": album["images"][0]["url"] if album["images"] else "",
-            "tracks": [track["name"] for track in tracks],
+            "tracks": [{
+                "id": track["id"],
+                "title": track["name"],
+                "artists": [{"name": artist["name"]} for artist in track["artists"]],
+                "durationMs": track["duration_ms"],
+                "number": track["track_number"],
+                "disc": track["disc_number"],
+                "url": track.get("external_urls", {}).get("spotify", ""),
+            } for track in tracks],
         })
 
     releases.sort(key=lambda item: item["date"], reverse=True)
