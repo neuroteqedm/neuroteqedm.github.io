@@ -40,11 +40,17 @@ def main():
             continue
         seen.add(album["id"])
         tracks = request(f"{API}/albums/{album['id']}/tracks?limit=50", headers)["items"]
+        artists = [artist["name"] for artist in album["artists"]]
+        for track in tracks:
+            for artist in track["artists"]:
+                if artist["name"] not in artists:
+                    artists.append(artist["name"])
+
         releases.append({
             "id": album["id"],
             "title": album["name"],
             "date": album["release_date"],
-            "artists": [artist["name"] for artist in album["artists"]],
+            "artists": artists,
             "url": album["external_urls"]["spotify"],
             "cover": album["images"][0]["url"] if album["images"] else "",
             "tracks": [track["name"] for track in tracks],
