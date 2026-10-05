@@ -10,6 +10,88 @@ ROOT = Path(__file__).resolve().parent
 SITE = Path.cwd() / "_site"
 RELEASES_FILE = ROOT / "releases.json"
 
+PLATFORM_LOGOS = {
+    "spotify": ("spotify", "000000"),
+    "apple-music": ("applemusic", "ffffff"),
+    "soundcloud": ("soundcloud", "ff5500"),
+    "youtube-music": ("youtubemusic", "ffffff"),
+    "tidal": ("tidal", "ffffff"),
+    "deezer": ("deezer", "b26bff"),
+    "amazon-music": ("amazonmusic", "25d1da"),
+    "newgrounds": ("newgrounds", "ff9900"),
+    "youtube": ("youtube", "ff0033"),
+    "instagram": ("instagram", "e4405f"),
+    "tiktok": ("tiktok", "ffffff"),
+    "twitch": ("twitch", "a970ff"),
+    "musixmatch": ("musixmatch", "ffffff"),
+}
+
+
+def download_platform_logos():
+    logo_dir = SITE / "images" / "platform-logos"
+    logo_dir.mkdir(parents=True, exist_ok=True)
+
+    def download(item):
+        name, (icon, color) = item
+        url = "https://api.iconify.design/simple-icons/{}.png?color=%23{}&width=96&height=96".format(icon, color)
+        try:
+            request = urllib.request.Request(url, headers={"User-Agent": "NeuroteqSite/1.0", "Accept": "image/png"})
+            with urllib.request.urlopen(request, timeout=20) as response:
+                content = response.read(500_001)
+                if response.headers.get_content_type() != "image/png" or not content.startswith(b"\x89PNG\r\n\x1a\n") or len(content) > 500_000:
+                    return name, False
+            (logo_dir / (name + ".png")).write_bytes(content)
+            return name, True
+        except Exception as exc:
+            print("Could not download {} logo: {}".format(name, exc))
+            return name, False
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+        results = dict(pool.map(download, PLATFORM_LOGOS.items()))
+    print("Downloaded {}/{} platform PNG logos.".format(sum(results.values()), len(PLATFORM_LOGOS)))
+    return {name for name, ok in results.items() if ok}
+
+
+def inject_platform_logos(html, downloaded):
+    def key_for_href(href):
+        if "music.youtube.com" in href:
+            return "youtube-music"
+        if "open.spotify.com" in href:
+            return "spotify"
+        if "music.apple.com" in href:
+            return "apple-music"
+        for host, name in (
+            ("soundcloud.com", "soundcloud"), ("tidal.com", "tidal"),
+            ("deezer.com", "deezer"), ("amazon.com", "amazon-music"),
+            ("newgrounds.com", "newgrounds"), ("youtube.com", "youtube"),
+            ("instagram.com", "instagram"), ("tiktok.com", "tiktok"),
+            ("twitch.tv", "twitch"), ("musixmatch.com", "musixmatch"),
+        ):
+            if host in href:
+                return name
+        return None
+
+    for list_class in ("music-links", "social-links"):
+        pattern = r'(<ul[^>]*class="[^"]*\b' + list_class + r'\b[^"]*"[^>]*>)(.*?)(</ul>)'
+        match = re.search(pattern, html, flags=re.S)
+        if not match:
+            continue
+
+        def add_image(anchor):
+            href = re.search(r'\bhref="([^"]+)"', anchor.group(1))
+            if not href:
+                return anchor.group(0)
+            name = key_for_href(href.group(1))
+            if not name or name not in downloaded:
+                return anchor.group(0)
+            img = '<img class="platform-logo" src="/images/platform-logos/{}.png" width="22" height="22" alt="" aria-hidden="true">'.format(name)
+            return anchor.group(1) + img
+
+        links = re.sub(r'<a\b[^>]*>', add_image, match.group(2))
+        html = html[:match.start(2)] + links + html[match.end(2):]
+    return html
+
+
 def save_artwork(release):
     url = release.get("cover", "")
     if not url.startswith("https://"):
@@ -162,6 +244,21 @@ def main():
             '<span>Musixmatch</span><span class="social-handle">backzone99</span>',
             '<span>Musixmatch</span><span class="social-handle">neuroteq</span>',
         )
+        logos_downloaded = download_platform_logos()
+        html = inject_platform_logos(html, logos_downloaded)
+        html = re.sub(
+            r'(<footer\b[^>]*>.*?</footer>)',
+            lambda match: re.sub(
+                r'Query Records\.?</p>',
+                'Query Records</p>',
+                re.sub(r'<a\b[^>]*>Query Records</a>', 'Query Records', match.group(1)),
+                count=1,
+            ),
+            html,
+            count=1,
+            flags=re.S,
+        )
+
         tracklist_css = """
 <style id="neuroteq-tracklist-layout">.release:has(.tracklist-popover){position:relative;z-index:9999}
 .release-tracks{position:relative}
@@ -304,6 +401,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid #df35fa; outline-offs
 """
         if 'id="neuroteq-tracklist-layout"' not in html:
             html = html.replace("</head>", tracklist_css + "</head>", 1)
+        logo_css = """<style id="neuroteq-platform-logo-images">
+.music-links a::before, .social-links a::before { content: none !important; display: none !important; background: none !important; }
+.platform-logo { width: 22px; height: 22px; display: block; grid-column: 1; grid-row: 1 / span 2; align-self: center; object-fit: contain; transition: transform .22s cubic-bezier(.2,.7,.2,1), filter .2s ease; }
+.social-links .platform-logo { width: 20px; height: 20px; }
+.platform-logo[src*="spotify.png"] { box-sizing: border-box; padding: 3px; border-radius: 50%; background: #1ed760; }
+.music-links a:hover .platform-logo, .social-links a:hover .platform-logo { transform: scale(1.08); }
+</style>"""
+        html = html.replace("</head>", logo_css + "</head>", 1)
+
         index_file.write_text(html, encoding="utf-8")
 
     patch_exported_site()
