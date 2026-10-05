@@ -78,6 +78,12 @@ def patch_exported_site():
         new_chunk.write_text(chunk_text, encoding="utf-8")
 
     replacements = {
+        'onMouseEnter:()=>n(!0)': 'onMouseEnter:e=>{let t=e.currentTarget;clearTimeout(t._tracklistCloseTimer);let r=t.querySelector(".tracklist-popover");r&&r.classList.remove("tracklist-closing");n(!0)}',
+        'onMouseLeave:()=>n(!1)': 'onMouseLeave:e=>{if(e.currentTarget.contains(e.relatedTarget))return;let t=e.currentTarget.querySelector(".tracklist-popover");t&&t.classList.add("tracklist-closing");clearTimeout(e.currentTarget._tracklistCloseTimer);e.currentTarget._tracklistCloseTimer=setTimeout(()=>n(!1),150)}',
+        'className:"tracklist-popover",id:g,children:': 'className:"tracklist-popover",id:g,onMouseEnter:e=>{let t=e.currentTarget.closest(".release-tracks");t&&clearTimeout(t._tracklistCloseTimer);e.currentTarget.classList.remove("tracklist-closing")},onMouseLeave:e=>{let t=e.currentTarget.closest(".release-tracks");if(t&&!t.contains(e.relatedTarget)){e.currentTarget.classList.add("tracklist-closing");clearTimeout(t._tracklistCloseTimer);t._tracklistCloseTimer=setTimeout(()=>n(!1),150)}},children:',
+        'onClick:()=>n(!1)': 'onClick:e=>{let t=e.currentTarget.closest(".release-tracks"),r=t?.querySelector(".tracklist-popover");r&&r.classList.add("tracklist-closing");t&&(clearTimeout(t._tracklistCloseTimer),t._tracklistCloseTimer=setTimeout(()=>n(!1),150))}',
+        'onClick:()=>n(!t)': 'onClick:e=>{let r=e.currentTarget.closest(".release-tracks"),i=r?.querySelector(".tracklist-popover");if(!t){clearTimeout(r?._tracklistCloseTimer);n(!0);return}i&&i.classList.add("tracklist-closing");r&&(clearTimeout(r._tracklistCloseTimer),r._tracklistCloseTimer=setTimeout(()=>n(!1),150))}',
+        'onBlur:t=>{t.currentTarget.parentElement?.contains(t.relatedTarget)||n(!1)}': 'onBlur:e=>{let t=e.currentTarget.parentElement;if(t?.contains(e.relatedTarget))return;let r=t?.querySelector(".tracklist-popover");r&&r.classList.add("tracklist-closing");t&&(clearTimeout(t._tracklistCloseTimer),t._tracklistCloseTimer=setTimeout(()=>n(!1),150))}',
         old_name: new_name,
         "https://neuroteq.xyz/": "https://backzone99.tb.ru/",
         "https://music.apple.com/ru/artist/backzone99/1715799081": "https://music.apple.com/us/artist/neuroteq/6811395218",
@@ -187,8 +193,11 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .tracklist-head h4 { font-size: 1.2rem; }
 .tracklist-songs a { min-height: 64px; padding: 15px 16px; }
 .track-title { font-size: 1.0625rem; }
-.tracklist-popover { border-radius: 14px; overflow: hidden; animation: tracklist-window-in .24s cubic-bezier(.2,.7,.2,1) both; transform-origin: top left; }
+.tracklist-popover { border-radius: 18px; overflow: hidden; animation: tracklist-window-in .24s cubic-bezier(.2,.7,.2,1) both; transform-origin: top left; }
+.tracklist-head { border-radius: 17px 17px 0 0; }
+.tracklist-popover.tracklist-closing { animation: tracklist-window-out .15s ease both !important; pointer-events: none !important; }
 @keyframes tracklist-window-in { from { opacity: 0; transform: translateY(9px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes tracklist-window-out { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(3px) scale(.99); } }
 .tracklist-head { border-radius: 13px 13px 0 0; }
 .tracklist-close { border-radius: 50%; transition: color .18s ease, background-color .18s ease; }
 .tracklist-close:hover { background: #2b1d31; }
@@ -197,6 +206,11 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .release-tabs .release-tab[data-state=active] { background: #1a151e; border-color: #49394f; }
 .release-tabs .release-tab:after { display: none; }
 .show-releases { border-radius: 8px; }
+a, button { transition: color .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease, opacity .18s ease, transform .2s cubic-bezier(.2,.7,.2,1); }
+.tracklist-songs a { transition: color .18s ease, background-color .18s ease, transform .18s ease; }
+.tracklist-songs a:hover { background: #1a151e; }
+.release-link svg, .tracklist-spotify svg, .show-releases svg { transition: transform .2s ease; }
+.release-link:hover svg, .tracklist-spotify:hover svg, .show-releases:hover svg { transform: translate(2px,-2px); }
 .music-links { border: 0; gap: 10px 22px; }
 .music-links li, .music-links li:hover { border: 0; border-radius: 0; background: transparent; overflow: visible; }
 .music-links a { grid-template-columns: 24px minmax(0,1fr) 18px; align-items: center; column-gap: 10px; min-height: 60px; padding: 8px 0; border-radius: 0; }
@@ -205,7 +219,7 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .music-links a .platform-detail { grid-column: 2; grid-row: 2; }
 .music-links a > svg { grid-column: 3; grid-row: 1 / span 2; }
 .music-links a::before { background-repeat: no-repeat; background-position: center; background-size: contain; transition: transform .22s cubic-bezier(.2,.7,.2,1), filter .2s ease; }
-.music-links a[href*="spotify.com"]::before { background-image: radial-gradient(circle, #1ed760 61%, transparent 63%), url("https://cdn.simpleicons.org/spotify/000000"); background-size: 100% 100%, 75% 75%; border-radius: 50%; }
+.music-links a[href*="spotify.com"]::before { background-image: url("https://cdn.simpleicons.org/spotify/000000"), radial-gradient(circle, #1ed760 61%, transparent 63%); background-size: 75% 75%, 100% 100%; background-position: center, center; border-radius: 50%; }
 .music-links a[href*="music.apple.com"]::before { background-image: url("https://cdn.simpleicons.org/applemusic/ffffff"); }
 .music-links a[href*="soundcloud.com"]::before { background-image: url("https://cdn.simpleicons.org/soundcloud/ff5500"); }
 .music-links a[href*="soundcloud.com"]:hover .platform-name { color: #ff5500; }
@@ -259,9 +273,9 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .music-links a[href*="amazon.com"]:hover .platform-name { color: #25d1da; }
 .music-links a[href*="newgrounds.com"]:hover .platform-name { color: #ff9900; }
 @media (prefers-reduced-motion: reduce) {
-  .music-links a, .music-links a::before, .music-links a > svg, .social-links li, .social-links a, .social-links a::before, .social-links a > svg, .release-tabs .release-tab, .tracklist-close, .site-footer a { transition: none; }
-  .release-art, .release:hover .release-art { transition: none; transform: none; }
-  .tracklist-popover { animation: none; }
+  a, button, .tracklist-songs a, .release-link, .tracklist-spotify, .show-releases, .music-links a, .music-links a::before, .music-links a > svg, .social-links li, .social-links a, .social-links a::before, .social-links a > svg, .release-tabs .release-tab, .tracklist-close, .site-footer a { transition: none !important; }
+  .release-art, .release:hover .release-art { transition: none !important; transform: none; }
+  .tracklist-popover, .tracklist-popover.tracklist-closing { animation: none !important; }
 }
 </style>
 """
