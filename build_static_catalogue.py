@@ -160,13 +160,10 @@ def main():
             '<span>Musixmatch</span><span class="social-handle">neuroteq</span>',
         )
         tracklist_css = """
-<style id="neuroteq-tracklist-layout">.release:has(.tracklist-popover){position:relative;z-index:5}body:has(.tracklist-popover) .release{display:flex;height:100%;flex-direction:column}
-body:has(.tracklist-popover) .release-meta{margin-top:auto}
+<style id="neuroteq-tracklist-layout">.release:has(.tracklist-popover){position:relative;z-index:5}
 .release-tracks{position:relative}
-.release:has(.tracklist-popover) .release-tracks{padding-bottom:min(480px,calc(100vh - 24px))}
 a[href="#label-heading"].text-link{display:none!important}
-footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}
-.tracklist-popover{position:absolute!important;top:calc(100% + 10px - min(480px,calc(100vh - 24px)))!important;bottom:auto!important;left:0!important;right:auto!important;width:min(360px,100%,calc(100vw - 32px))!important;max-height:min(480px,calc(100vh - 24px))!important;z-index:50!important}
+footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}.tracklist-popover{position:relative!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;width:100%!important;max-height:min(480px,calc(100vh - 24px))!important;z-index:50!important}
 </style>
 """
         if 'id="neuroteq-tracklist-layout"' not in html:
