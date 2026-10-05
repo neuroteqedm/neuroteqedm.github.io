@@ -6,9 +6,12 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
+
 ROOT = Path(__file__).resolve().parent
 SITE = Path.cwd() / "_site"
 RELEASES_FILE = ROOT / "releases.json"
+
+
 
 
 def save_artwork(release):
@@ -35,6 +38,8 @@ def save_artwork(release):
         return url
 
 
+
+
 def normalize_track(track, release, index):
     if isinstance(track, str):
         return {
@@ -57,12 +62,15 @@ def normalize_track(track, release, index):
     }
 
 
+
+
 def patch_exported_site():
     chunks = SITE / "_next" / "static" / "chunks"
     old_name = "layout-segment-context-D-I1VA2F.js"
     new_name = "layout-context-D-I1VA2F.js"
     old_chunk = chunks / old_name
     new_chunk = chunks / new_name
+
 
     if old_chunk.exists():
         chunk_text = old_chunk.read_text(encoding="utf-8")
@@ -79,6 +87,7 @@ def patch_exported_site():
             "var n=()=>null;",
         )
         new_chunk.write_text(chunk_text, encoding="utf-8")
+
 
     replacements = {
         old_name: new_name,
@@ -102,10 +111,13 @@ def patch_exported_site():
             path.write_text(updated, encoding="utf-8")
 
 
+
+
 def main():
     releases = json.loads(RELEASES_FILE.read_text(encoding="utf-8"))
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
         artwork_urls = list(pool.map(save_artwork, releases))
+
 
     fetched_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     catalogue = {
@@ -136,6 +148,7 @@ def main():
             "tracks": tracks,
         }, ensure_ascii=False), encoding="utf-8")
 
+
     api_file = SITE / "api" / "releases.json"
     api_file.parent.mkdir(parents=True, exist_ok=True)
     api_file.write_text(json.dumps(catalogue, ensure_ascii=False), encoding="utf-8")
@@ -159,18 +172,26 @@ def main():
             '<span>Musixmatch</span><span class="social-handle">backzone99</span>',
             '<span>Musixmatch</span><span class="social-handle">neuroteq</span>',
         )
-        tracklist_css = """
-<style id="neuroteq-tracklist-layout">.release:has(.tracklist-popover){position:relative;z-index:9999}
-.release-tracks{position:relative}
-a[href="#label-heading"].text-link{display:none!important}
-footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}.tracklist-popover{position:relative!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;width:100%!important;max-height:min(480px,calc(100vh - 24px))!important;z-index:50!important}
+        html = re.sub(
+            r'<style id="neuroteq-tracklist-layout">.*?</style>',
+            "",
+            html,
+            count=1,
+            flags=re.S,
+        )
+        site_links_css = """
+<style id="neuroteq-site-links">a[href="#label-heading"].text-link{display:none!important}
+footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}
 </style>
 """
-        if 'id="neuroteq-tracklist-layout"' not in html:
-            html = html.replace("</head>", tracklist_css + "</head>", 1)
+        if 'id="neuroteq-site-links"' not in html:
+            html = html.replace("</head>", site_links_css + "</head>", 1)
         index_file.write_text(html, encoding="utf-8")
 
+
     patch_exported_site()
+
+
 
 
 if __name__ == "__main__":
