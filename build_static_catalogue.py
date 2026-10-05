@@ -13,9 +13,33 @@ from pathlib import Path
 
 
 
+
+
+
+
+
+
+
+
 ROOT = Path(__file__).resolve().parent
 SITE = Path.cwd() / "_site"
 RELEASES_FILE = ROOT / "releases.json"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -70,6 +94,22 @@ def save_artwork(release):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def normalize_track(track, release, index):
     if isinstance(track, str):
         return {
@@ -106,12 +146,36 @@ def normalize_track(track, release, index):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def patch_exported_site():
     chunks = SITE / "_next" / "static" / "chunks"
     old_name = "layout-segment-context-D-I1VA2F.js"
     new_name = "layout-context-D-I1VA2F.js"
     old_chunk = chunks / old_name
     new_chunk = chunks / new_name
+
+
+
+
+
+
+
+
 
 
 
@@ -135,6 +199,14 @@ def patch_exported_site():
             "var n=()=>null;",
         )
         new_chunk.write_text(chunk_text, encoding="utf-8")
+
+
+
+
+
+
+
+
 
 
 
@@ -179,10 +251,34 @@ def patch_exported_site():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def main():
     releases = json.loads(RELEASES_FILE.read_text(encoding="utf-8"))
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
         artwork_urls = list(pool.map(save_artwork, releases))
+
+
+
+
+
+
+
+
 
 
 
@@ -219,6 +315,14 @@ def main():
             "releaseId": release["id"],
             "tracks": tracks,
         }, ensure_ascii=False), encoding="utf-8")
+
+
+
+
+
+
+
+
 
 
 
@@ -264,17 +368,54 @@ def main():
 a[href="#label-heading"].text-link{display:none!important}
 footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}
 
+
 html{scroll-behavior:smooth}
 a,button,.release-art,.release-tab,.show-releases,.tracklist-popover{transition-duration:.24s!important;transition-timing-function:cubic-bezier(.22,.61,.36,1)!important}
 .release-art{border-radius:10px}
-.tracklist-popover{border-radius:8px}
+.tracklist-popover{border-radius:8px;transform-origin:top left;animation:neuroteq-window-in .2s cubic-bezier(.22,.61,.36,1) both}
+@keyframes neuroteq-window-in{from{opacity:0;transform:translateY(7px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes neuroteq-window-out{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-5px) scale(.985)}}
 .show-releases{border-radius:6px}
 .hero-avatar-frame{border-radius:4px}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}a,button,.release-art,.release-tab,.show-releases,.tracklist-popover{transition-duration:.01ms!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}a,button,.release-art,.release-tab,.show-releases,.tracklist-popover{transition-duration:.01ms!important}.tracklist-popover{animation:none!important}}
 </style>
 """
         if 'id="neuroteq-site-links"' not in html:
             html = html.replace("</head>", site_links_css + "</head>", 1)
+        tracklist_motion_script = """<script id="neuroteq-tracklist-motion">
+(() => {
+  document.addEventListener("click", event => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const control = event.target.closest(".release-art, .tracklist-close");
+    if (!control) return;
+    const panel = document.querySelector(".tracklist-popover");
+    if (!panel) return;
+    const rect = panel.getBoundingClientRect();
+    const clone = panel.cloneNode(true);
+    clone.removeAttribute("id");
+    clone.querySelectorAll("[id]").forEach(node => node.removeAttribute("id"));
+    clone.setAttribute("aria-hidden", "true");
+    clone.inert = true;
+    const style = clone.style;
+    style.setProperty("position", "fixed", "important");
+    style.setProperty("left", String(rect.left) + "px", "important");
+    style.setProperty("top", String(rect.top) + "px", "important");
+    style.setProperty("right", "auto", "important");
+    style.setProperty("bottom", "auto", "important");
+    style.setProperty("width", String(rect.width) + "px", "important");
+    style.setProperty("height", String(rect.height) + "px", "important");
+    style.setProperty("max-height", "none", "important");
+    style.setProperty("margin", "0", "important");
+    style.setProperty("z-index", "99999", "important");
+    style.setProperty("pointer-events", "none", "important");
+    style.setProperty("animation", "neuroteq-window-out .18s cubic-bezier(.22,.61,.36,1) forwards", "important");
+    document.body.append(clone);
+    window.setTimeout(() => clone.remove(), 210);
+  }, true);
+})();
+</script>"""
+        if 'id="neuroteq-tracklist-motion"' not in html:
+            html = html.replace("</body>", tracklist_motion_script + "</body>", 1)
         index_file.write_text(html, encoding="utf-8")
 
 
@@ -284,7 +425,31 @@ a,button,.release-art,.release-tab,.show-releases,.tracklist-popover{transition-
 
 
 
+
+
+
+
+
+
+
+
     patch_exported_site()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
