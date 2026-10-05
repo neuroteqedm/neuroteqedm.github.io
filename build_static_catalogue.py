@@ -7,9 +7,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
+
+
 ROOT = Path(__file__).resolve().parent
 SITE = Path.cwd() / "_site"
 RELEASES_FILE = ROOT / "releases.json"
+
+
+
+
 
 
 
@@ -40,6 +46,10 @@ def save_artwork(release):
 
 
 
+
+
+
+
 def normalize_track(track, release, index):
     if isinstance(track, str):
         return {
@@ -64,12 +74,18 @@ def normalize_track(track, release, index):
 
 
 
+
+
+
+
 def patch_exported_site():
     chunks = SITE / "_next" / "static" / "chunks"
     old_name = "layout-segment-context-D-I1VA2F.js"
     new_name = "layout-context-D-I1VA2F.js"
     old_chunk = chunks / old_name
     new_chunk = chunks / new_name
+
+
 
 
     if old_chunk.exists():
@@ -87,6 +103,8 @@ def patch_exported_site():
             "var n=()=>null;",
         )
         new_chunk.write_text(chunk_text, encoding="utf-8")
+
+
 
 
     replacements = {
@@ -113,10 +131,16 @@ def patch_exported_site():
 
 
 
+
+
+
+
 def main():
     releases = json.loads(RELEASES_FILE.read_text(encoding="utf-8"))
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
         artwork_urls = list(pool.map(save_artwork, releases))
+
+
 
 
     fetched_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -147,6 +171,8 @@ def main():
             "releaseId": release["id"],
             "tracks": tracks,
         }, ensure_ascii=False), encoding="utf-8")
+
+
 
 
     api_file = SITE / "api" / "releases.json"
@@ -180,7 +206,10 @@ def main():
             flags=re.S,
         )
         site_links_css = """
-<style id="neuroteq-site-links">a[href="#label-heading"].text-link{display:none!important}
+<style id="neuroteq-site-links">.release:has(.tracklist-popover){position:relative;z-index:30}
+.release-tracks{position:relative}
+.tracklist-popover{position:absolute!important;top:100%!important;left:0!important;right:auto!important;bottom:auto!important;width:100%!important;max-height:min(480px,calc(100vh - 24px))!important;overflow:auto!important;z-index:50!important}
+a[href="#label-heading"].text-link{display:none!important}
 footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}
 </style>
 """
@@ -189,7 +218,13 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
         index_file.write_text(html, encoding="utf-8")
 
 
+
+
     patch_exported_site()
+
+
+
+
 
 
 
