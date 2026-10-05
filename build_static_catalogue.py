@@ -153,7 +153,7 @@ def main():
             flags=re.S,
         )
         html = re.sub(
-            r'<a href="https://query-records\.backzone99\.chatgpt\.site">Query Records</a>',
+            r'<a href="https://query-records\.backzone99\.chatgpt\.site">Query Records</a>'
             "Query Records",
             html,
             count=1,
@@ -165,8 +165,9 @@ def main():
         tracklist_css = """
 <style id="neuroteq-tracklist-layout">.release:has(.tracklist-popover){position:relative;z-index:9999}
 .release-tracks{position:relative}
+.release-tracks:has(.tracklist-popover){padding-bottom:8px!important;margin-bottom:-8px!important}
 a[href="#label-heading"].text-link{display:none!important}
-footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}.tracklist-popover{position:absolute!important;top:calc(100% + 5px)!important;bottom:auto!important;left:-9px!important;right:auto!important;width:calc(100% + 18px)!important;max-height:min(520px,calc(100vh - 24px))!important;overflow:auto!important;z-index:10000!important}
+footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}.tracklist-popover{position:absolute!important;top:calc(100% - 3px)!important;bottom:auto!important;left:-9px!important;right:auto!important;width:calc(100% + 18px)!important;max-height:min(520px,calc(100vh - 24px))!important;overflow:auto!important;z-index:10000!important}
 .music-links a[href*="open.spotify.com"]:hover,.social-links a[href*="open.spotify.com"]:hover{color:#1ed760!important}
 .music-links a[href*="music.apple.com"]:hover,.social-links a[href*="music.apple.com"]:hover{color:#fa243c!important}
 .music-links a[href*="soundcloud.com"]:hover,.social-links a[href*="soundcloud.com"]:hover{color:#ff5500!important}
