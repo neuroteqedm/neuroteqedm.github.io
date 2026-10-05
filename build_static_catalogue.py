@@ -233,7 +233,7 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .social-links a[href*="instagram.com"]::before { background-image: url("https://cdn.simpleicons.org/instagram/E4405F"); }
 .social-links a[href*="tiktok.com"]::before { background-image: url("https://cdn.simpleicons.org/tiktok/FFFFFF"); }
 .social-links a[href*="twitch.tv"]::before { background-image: url("https://cdn.simpleicons.org/twitch/A970FF"); }
-.social-links a[href*="musixmatch.com"]::before { background-image: url("https://api.iconify.design/simple-icons/musixmatch.svg?color=%23ff5b5b"); }
+.social-links a[href*="musixmatch.com"]::before { background-image: url("https://upload.wikimedia.org/wikipedia/commons/0/0f/Musixmatch_Icon.svg"); }
 .label-note { border: 1px solid #49394f; border-left: 2px solid var(--accent); border-radius: 16px; background: #100e12; padding: 22px; }
 .timeline li:before { border-radius: 50%; }
 .site-footer a { border-radius: 6px; padding-inline: 11px; transition: color .18s ease, background-color .18s ease; }
