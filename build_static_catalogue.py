@@ -1,6 +1,7 @@
 import concurrent.futures
 import json
 import mimetypes
+import re
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -136,6 +137,37 @@ def main():
     api_file = SITE / "api" / "releases.json"
     api_file.parent.mkdir(parents=True, exist_ok=True)
     api_file.write_text(json.dumps(catalogue, ensure_ascii=False), encoding="utf-8")
+    index_file = SITE / "index.html"
+    if index_file.exists():
+        html = index_file.read_text(encoding="utf-8")
+        html = re.sub(
+            r'<a class="text-link" href="https://query-records\.backzone99\.chatgpt\.site"[^>]*>Visit Query Records .*?</a>',
+            "",
+            html,
+            count=1,
+            flags=re.S,
+        )
+        html = re.sub(
+            r'<a href="https://query-records\.backzone99\.chatgpt\.site">Query Records</a>',
+            "Query Records",
+            html,
+            count=1,
+        )
+        html = html.replace(
+            '<span>Musixmatch</span><span class="social-handle">backzone99</span>',
+            '<span>Musixmatch</span><span class="social-handle">neuroteq</span>',
+        )
+        tracklist_css = """
+<style id="neuroteq-tracklist-layout">
+.release:has(.tracklist-popover){position:relative;z-index:5}
+.release-tracks{position:relative}
+.tracklist-popover{position:absolute!important;top:calc(100% + 10px)!important;bottom:auto!important;left:0!important;right:auto!important;width:min(360px,100%,calc(100vw - 32px))!important;max-height:min(480px,calc(100vh - 24px))!important;z-index:50!important}
+</style>
+"""
+        if 'id="neuroteq-tracklist-layout"' not in html:
+            html = html.replace("</head>", tracklist_css + "</head>", 1)
+        index_file.write_text(html, encoding="utf-8")
+
     patch_exported_site()
 
 
