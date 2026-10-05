@@ -180,13 +180,15 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .hero-avatar-frame img { border-radius: inherit; }
 .genres li { border: 1px solid #49394f; border-radius: 10px; padding: 3px 11px; }
 .genres ul { gap: 7px; }
-.release { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 12px; }
-.release-art { border-radius: 8px; }
+.release { border: 0 !important; border-radius: 0 !important; background: transparent !important; padding: 0 !important; }
+.release-art { border-radius: 14px; transition: filter .28s ease, transform .32s cubic-bezier(.2,.7,.2,1); }
+.release:hover .release-art { filter: brightness(1.045); transform: scale(1.012); }
 .release-meta { margin-top: 14px; }
 .tracklist-head h4 { font-size: 1.2rem; }
 .tracklist-songs a { min-height: 64px; padding: 15px 16px; }
 .track-title { font-size: 1.0625rem; }
-.tracklist-popover { border-radius: 14px; overflow: hidden; }
+.tracklist-popover { border-radius: 14px; overflow: hidden; animation: tracklist-window-in .24s cubic-bezier(.2,.7,.2,1) both; transform-origin: top left; }
+@keyframes tracklist-window-in { from { opacity: 0; transform: translateY(9px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .tracklist-head { border-radius: 13px 13px 0 0; }
 .tracklist-close { border-radius: 50%; transition: color .18s ease, background-color .18s ease; }
 .tracklist-close:hover { background: #2b1d31; }
@@ -220,17 +222,24 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .music-links a:hover::before { transform: scale(1.12); }
 .social-links { gap: 10px 22px; }
 .social-links li, .social-links li:hover { border: 0 !important; border-radius: 0 !important; background: transparent !important; padding: 0 !important; }
-.social-links a { display: grid; grid-template-columns: minmax(0,1fr) 16px; align-items: center; gap: 1px 10px; min-height: 56px; padding: 8px 0; border-radius: 0; transition: color .2s ease, opacity .2s ease; }
-.social-links a > span:first-child { grid-column: 1; grid-row: 1; }
-.social-links a .social-handle { grid-column: 1; grid-row: 2; }
-.social-links a > svg { grid-column: 2; grid-row: 1 / span 2; transition: transform .2s ease, color .2s ease; }
+.social-links a { display: grid; grid-template-columns: 24px minmax(0,1fr) 16px; align-items: center; gap: 1px 10px; min-height: 56px; padding: 8px 0; border-radius: 0; transition: color .2s ease, opacity .2s ease; }
+.social-links a::before { content: ""; display: block; width: 20px; height: 20px; grid-column: 1; grid-row: 1 / span 2; align-self: center; background-position: center; background-repeat: no-repeat; background-size: contain; transition: transform .22s cubic-bezier(.2,.7,.2,1), opacity .2s ease; }
+.social-links a > span:first-child { grid-column: 2; grid-row: 1; }
+.social-links a .social-handle { grid-column: 2; grid-row: 2; }
+.social-links a > svg { grid-column: 3; grid-row: 1 / span 2; transition: transform .2s ease, color .2s ease; }
+.social-links a:hover::before { transform: scale(1.12); }
 .social-links a:hover > svg { transform: translate(2px,-2px); }
+.social-links a[href*="youtube.com"]::before { background-image: url("https://cdn.simpleicons.org/youtube/FF0033"); }
+.social-links a[href*="instagram.com"]::before { background-image: url("https://cdn.simpleicons.org/instagram/E4405F"); }
+.social-links a[href*="tiktok.com"]::before { background-image: url("https://cdn.simpleicons.org/tiktok/FFFFFF"); }
+.social-links a[href*="twitch.tv"]::before { background-image: url("https://cdn.simpleicons.org/twitch/A970FF"); }
+.social-links a[href*="musixmatch.com"]::before { background-image: url("https://cdn.simpleicons.org/musixmatch/FF5B5B"); }
 .label-note { border: 1px solid #49394f; border-left: 2px solid var(--accent); border-radius: 16px; background: #100e12; padding: 22px; }
 .timeline li:before { border-radius: 50%; }
 .site-footer a { border-radius: 6px; padding-inline: 11px; transition: color .18s ease, background-color .18s ease; }
 .site-footer a:hover { background: #1a151e; }
 @media (max-width:760px) {
-  .release { border-radius: 10px; padding: 9px; }
+  .release { border: 0 !important; border-radius: 0 !important; background: transparent !important; padding: 0 !important; }
   .music-links { gap: 8px 14px; }
   .music-links a { min-height: 54px; padding: 7px 0; }
   .social-links { gap: 8px; }
@@ -251,6 +260,8 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .music-links a[href*="newgrounds.com"]:hover .platform-name { color: #ff9900; }
 @media (prefers-reduced-motion: reduce) {
   .music-links a, .music-links a::before, .music-links a > svg, .social-links li, .social-links a, .social-links a::before, .social-links a > svg, .release-tabs .release-tab, .tracklist-close, .site-footer a { transition: none; }
+  .release-art, .release:hover .release-art { transition: none; transform: none; }
+  .tracklist-popover { animation: none; }
 }
 </style>
 """
