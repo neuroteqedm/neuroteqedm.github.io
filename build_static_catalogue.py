@@ -33,7 +33,8 @@ def download_platform_logos():
 
     def download(item):
         name, (icon, color) = item
-        url = "https://api.iconify.design/simple-icons/{}.png?color=%23{}&width=96&height=96".format(icon, color)
+        domain = {"spotify": "spotify.com", "apple-music": "music.apple.com", "soundcloud": "soundcloud.com", "youtube-music": "music.youtube.com", "tidal": "tidal.com", "deezer": "deezer.com", "amazon-music": "music.amazon.com", "newgrounds": "newgrounds.com", "youtube": "youtube.com", "instagram": "instagram.com", "tiktok": "tiktok.com", "twitch": "twitch.tv", "musixmatch": "musixmatch.com"}[name]
+        url = "https://www.google.com/s2/favicons?domain={}&sz=128".format(domain)
         try:
             request = urllib.request.Request(url, headers={"User-Agent": "NeuroteqSite/1.0", "Accept": "image/png"})
             with urllib.request.urlopen(request, timeout=20) as response:
@@ -78,14 +79,14 @@ def inject_platform_logos(html, downloaded):
             continue
 
         def add_image(anchor):
-            href = re.search(r'\bhref="([^"]+)"', anchor.group(1))
+            href = re.search(r'\bhref="([^"]+)"', anchor.group(0))
             if not href:
                 return anchor.group(0)
             name = key_for_href(href.group(1))
             if not name or name not in downloaded:
                 return anchor.group(0)
             img = '<img class="platform-logo" src="/images/platform-logos/{}.png" width="22" height="22" alt="" aria-hidden="true">'.format(name)
-            return anchor.group(1) + img
+            return anchor.group(0) + img
 
         links = re.sub(r'<a\b[^>]*>', add_image, match.group(2))
         html = html[:match.start(2)] + links + html[match.end(2):]
