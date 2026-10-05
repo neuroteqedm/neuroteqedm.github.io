@@ -272,6 +272,27 @@ a, button { transition: color .18s ease, background-color .18s ease, border-colo
 .music-links a[href*="deezer.com"]:hover .platform-name { color: #b26bff; }
 .music-links a[href*="amazon.com"]:hover .platform-name { color: #25d1da; }
 .music-links a[href*="newgrounds.com"]:hover .platform-name { color: #ff9900; }
+
+/* Noticeable, lightweight feedback for controls across the page */
+a, button { transform-origin: center; }
+a:hover { text-decoration-color: currentColor; }
+a:active, button:active { transform: translateY(0) scale(.97); }
+a:focus-visible, button:focus-visible { outline: 2px solid #df35fa; outline-offset: 4px; }
+.music-links a, .social-links a, .site-footer a, .release-link, .show-releases, .tracklist-spotify, .release-tabs .release-tab, .tracklist-close { transform: translateY(0); transition: transform .2s cubic-bezier(.2,.7,.2,1), color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.music-links a:hover, .social-links a:hover, .site-footer a:hover, .release-link:hover, .show-releases:hover, .tracklist-spotify:hover { transform: translateY(-3px); }
+.music-links a:active, .social-links a:active, .site-footer a:active, .release-link:active, .show-releases:active, .tracklist-spotify:active { transform: translateY(0) scale(.98); }
+.release-art { transition: transform .28s cubic-bezier(.2,.7,.2,1), filter .24s ease, box-shadow .24s ease; }
+.release:hover .release-art, .release-tracks:hover .release-art { transform: translateY(-4px) scale(1.035); filter: brightness(1.1); box-shadow: 0 12px 34px rgba(222,35,255,.18); }
+.tracklist-songs a { border-radius: 9px; transition: background-color .18s ease, color .18s ease, transform .18s cubic-bezier(.2,.7,.2,1); }
+.tracklist-songs a:hover { background: rgba(220,48,247,.12)!important; transform: translateX(5px); }
+.tracklist-songs a:active { transform: translateX(2px) scale(.99); }
+.release-tabs .release-tab:hover { transform: translateY(-2px); background: rgba(218,47,245,.12); }
+.release-tabs .release-tab:active { transform: scale(.97); }
+.tracklist-close:hover { transform: rotate(90deg); background: rgba(220,48,247,.16); }
+.tracklist-popover { border-radius: 20px!important; }
+.music-links a:hover::before, .social-links a:hover::before { filter: drop-shadow(0 0 7px currentColor); }
+@media (prefers-reduced-motion: reduce) { a, button, .release-art, .tracklist-songs a, .music-links a, .social-links a { transition-duration: .01ms!important; } .release:hover .release-art, .release-tracks:hover .release-art, .music-links a:hover, .social-links a:hover, .tracklist-songs a:hover { transform: none!important; } }
+
 @media (prefers-reduced-motion: reduce) {
   a, button, .tracklist-songs a, .release-link, .tracklist-spotify, .show-releases, .music-links a, .music-links a::before, .music-links a > svg, .social-links li, .social-links a, .social-links a::before, .social-links a > svg, .release-tabs .release-tab, .tracklist-close, .site-footer a { transition: none !important; }
   .release-art, .release:hover .release-art { transition: none !important; transform: none; }
