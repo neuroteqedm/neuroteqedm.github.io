@@ -6,55 +6,9 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ROOT = Path(__file__).resolve().parent
 SITE = Path.cwd() / "_site"
 RELEASES_FILE = ROOT / "releases.json"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def save_artwork(release):
     url = release.get("cover", "")
@@ -79,37 +33,6 @@ def save_artwork(release):
     except Exception:
         return url
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def normalize_track(track, release, index):
     if isinstance(track, str):
         return {
@@ -131,58 +54,12 @@ def normalize_track(track, release, index):
         "url": track.get("url") or track.get("external_urls", {}).get("spotify", release.get("url", "")),
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def patch_exported_site():
     chunks = SITE / "_next" / "static" / "chunks"
     old_name = "layout-segment-context-D-I1VA2F.js"
     new_name = "layout-context-D-I1VA2F.js"
     old_chunk = chunks / old_name
     new_chunk = chunks / new_name
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     if old_chunk.exists():
         chunk_text = old_chunk.read_text(encoding="utf-8")
@@ -199,21 +76,6 @@ def patch_exported_site():
             "var n=()=>null;",
         )
         new_chunk.write_text(chunk_text, encoding="utf-8")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     replacements = {
         old_name: new_name,
@@ -237,56 +99,10 @@ def patch_exported_site():
         if updated != text:
             path.write_text(updated, encoding="utf-8")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def main():
     releases = json.loads(RELEASES_FILE.read_text(encoding="utf-8"))
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
         artwork_urls = list(pool.map(save_artwork, releases))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     fetched_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     catalogue = {
@@ -317,21 +133,6 @@ def main():
             "tracks": tracks,
         }, ensure_ascii=False), encoding="utf-8")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     api_file = SITE / "api" / "releases.json"
     api_file.parent.mkdir(parents=True, exist_ok=True)
     api_file.write_text(json.dumps(catalogue, ensure_ascii=False), encoding="utf-8")
@@ -359,7 +160,7 @@ def main():
 <style id="neuroteq-tracklist-layout">.release:has(.tracklist-popover){position:relative;z-index:9999}
 .release-tracks{position:relative}
 a[href="#label-heading"].text-link{display:none!important}
-footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}.tracklist-popover{position:absolute!important;top:calc(100% + 5px)!important;bottom:auto!important;left:0!important;right:auto!important;width:100%!important;max-height:min(480px,calc(100vh - 24px))!important;overflow:auto!important;z-index:10000!important}
+footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}.tracklist-popover{position:absolute!important;top:calc(100% + 5px)!important;bottom:auto!important;left:-9px!important;right:auto!important;width:calc(100% + 18px)!important;max-height:min(520px,calc(100vh - 24px))!important;overflow:auto!important;z-index:10000!important}
 .music-links a[href*="open.spotify.com"]:hover,.social-links a[href*="open.spotify.com"]:hover{color:#1ed760!important}
 .music-links a[href*="music.apple.com"]:hover,.social-links a[href*="music.apple.com"]:hover{color:#fa243c!important}
 .music-links a[href*="soundcloud.com"]:hover,.social-links a[href*="soundcloud.com"]:hover{color:#ff5500!important}
@@ -373,18 +174,20 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .music-links a[href*="twitch.tv"]:hover,.social-links a[href*="twitch.tv"]:hover{color:#a970ff!important}
 .music-links a[href*="musixmatch.com"]:hover,.social-links a[href*="musixmatch.com"]:hover{color:#ff5b5b!important}
 
-
 /* Softer corners across the site */
 :root { --radius: 14px; }
-.hero-avatar-frame { border-radius: 50%; }
+.hero-avatar-frame { border-radius: 12px; }
 .hero-avatar-frame img { border-radius: inherit; }
-.genres li { border: 1px solid #49394f; border-radius: 6px; padding: 3px 11px; }
+.genres li { border: 1px solid #49394f; border-radius: 10px; padding: 3px 11px; }
 .genres ul { gap: 7px; }
 .release { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 12px; }
 .release-art { border-radius: 8px; }
 .release-meta { margin-top: 14px; }
-.tracklist-popover { border-radius: 12px; overflow: hidden; }
-.tracklist-head { border-radius: 11px 11px 0 0; }
+.tracklist-head h4 { font-size: 1.2rem; }
+.tracklist-songs a { min-height: 64px; padding: 15px 16px; }
+.track-title { font-size: 1.0625rem; }
+.tracklist-popover { border-radius: 14px; overflow: hidden; }
+.tracklist-head { border-radius: 13px 13px 0 0; }
 .tracklist-close { border-radius: 50%; transition: color .18s ease, background-color .18s ease; }
 .tracklist-close:hover { background: #2b1d31; }
 .release-tabs .release-tab-list { border: 0; gap: 8px; margin-bottom: 22px; }
@@ -393,14 +196,14 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .release-tabs .release-tab:after { display: none; }
 .show-releases { border-radius: 8px; }
 .music-links { border: 0; gap: 10px; }
-.music-links li { border: 1px solid #302a35; border-radius: 8px; background: #100e12; overflow: hidden; transition: border-color .2s ease, background-color .2s ease; }
+.music-links li { border: 1px solid #302a35; border-radius: 12px; background: #100e12; overflow: hidden; transition: border-color .2s ease, background-color .2s ease; }
 .music-links li:hover { border-color: #57405f; background: #151119; }
 .music-links a { min-height: 76px; border-radius: inherit; padding: 13px 15px; }
 .social-links { gap: 10px; }
-.social-links li { border: 1px solid #302a35; border-radius: 8px; background: #100e12; padding: 0 14px; transition: border-color .2s ease, background-color .2s ease; }
+.social-links li { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 0 14px; transition: border-color .2s ease, background-color .2s ease; }
 .social-links li:hover { border-color: #57405f; background: #151119; }
 .social-links a { min-height: 72px; }
-.label-note { border: 1px solid #49394f; border-left: 2px solid var(--accent); border-radius: 10px; background: #100e12; padding: 22px; }
+.label-note { border: 1px solid #49394f; border-left: 2px solid var(--accent); border-radius: 16px; background: #100e12; padding: 22px; }
 .timeline li:before { border-radius: 50%; }
 .site-footer a { border-radius: 6px; padding-inline: 11px; transition: color .18s ease, background-color .18s ease; }
 .site-footer a:hover { background: #1a151e; }
@@ -421,53 +224,7 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
             html = html.replace("</head>", tracklist_css + "</head>", 1)
         index_file.write_text(html, encoding="utf-8")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     patch_exported_site()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     main()
