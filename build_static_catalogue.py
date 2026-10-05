@@ -590,3 +590,16 @@ if __name__ == "__main__":
         if 'id="neuroteq-platform-logo-contrast"' not in page:
             page = page.replace("</head>", logo_css + "</head>", 1)
             logo_index.write_text(page, encoding="utf-8")
+
+
+# Keep the Apple Music and YouTube Music marks visible on the dark background.
+if __name__ == "__main__":
+    logo_index = SITE / "index.html"
+    if logo_index.exists():
+        page = logo_index.read_text(encoding="utf-8")
+        logo_css = """<style id="neuroteq-platform-logo-visible">
+.platform-logo[src*="apple-music.png"], .platform-logo[src*="youtube-music.png"] { filter: none !important; }
+</style>"""
+        if 'id="neuroteq-platform-logo-visible"' not in page:
+            page = page.replace("</head>", logo_css + "</head>", 1)
+            logo_index.write_text(page, encoding="utf-8")
