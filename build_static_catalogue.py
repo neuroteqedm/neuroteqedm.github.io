@@ -505,3 +505,34 @@ if __name__ == "__main__":
         page = logo_index.read_text(encoding="utf-8")
         page = page.replace("https://cdn.simpleicons.org/newgrounds/ff9900", "/images/platform-logos/newgrounds.png")
         logo_index.write_text(page, encoding="utf-8")
+
+
+# Use recognizable platform marks for the two brands missing from Simple Icons.
+if __name__ == "__main__":
+    import cairosvg
+
+    fallback_logos = {
+        "amazon-music": "https://api.iconify.design/simple-icons/amazonmusic.svg?color=%2325d1da",
+        "musixmatch": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Musixmatch_Icon.svg",
+    }
+
+    def download_fallback_png(item):
+        name, url = item
+        try:
+            request = urllib.request.Request(url, headers={"User-Agent": "NeuroteqSite/1.0", "Accept": "image/svg+xml"})
+            with urllib.request.urlopen(request, timeout=20) as response:
+                svg = response.read(250_001)
+            if len(svg) > 250_000 or b"<svg" not in svg[:1000].lower():
+                return name, False
+            png = cairosvg.svg2png(bytestring=svg, output_width=128, output_height=128)
+            if not png.startswith(b"\x89PNG\r\n\x1a\n"):
+                return name, False
+            (SITE / "images" / "platform-logos" / (name + ".png")).write_bytes(png)
+            return name, True
+        except Exception as exc:
+            print("Could not create {} fallback PNG: {}".format(name, exc))
+            return name, False
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+        fallback_results = dict(pool.map(download_fallback_png, fallback_logos.items()))
+    print("Built {}/2 fallback platform PNGs.".format(sum(fallback_results.values())))
