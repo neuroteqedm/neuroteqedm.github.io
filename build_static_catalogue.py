@@ -536,3 +536,32 @@ if __name__ == "__main__":
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
         fallback_results = dict(pool.map(download_fallback_png, fallback_logos.items()))
     print("Built {}/2 fallback platform PNGs.".format(sum(fallback_results.values())))
+
+
+# Correct the Spotify mark and keep all platform logos legible at link size.
+if __name__ == "__main__":
+    try:
+        spotify_url = "https://cdn.simpleicons.org/spotify/1ed760"
+        request = urllib.request.Request(spotify_url, headers={"User-Agent": "NeuroteqSite/1.0", "Accept": "image/svg+xml"})
+        with urllib.request.urlopen(request, timeout=20) as response:
+            spotify_svg = response.read(250_001)
+        if len(spotify_svg) <= 250_000 and b"<svg" in spotify_svg[:1000].lower():
+            spotify_png = cairosvg.svg2png(bytestring=spotify_svg, output_width=128, output_height=128)
+            if spotify_png.startswith(b"\x89PNG\r\n\x1a\n"):
+                (SITE / "images" / "platform-logos" / "spotify.png").write_bytes(spotify_png)
+    except Exception as exc:
+        print("Could not update Spotify brand mark: {}".format(exc))
+
+    logo_index = SITE / "index.html"
+    if logo_index.exists():
+        page = logo_index.read_text(encoding="utf-8")
+        logo_css = """<style id="neuroteq-platform-logo-refinements">
+.platform-logo { width: 26px; height: 26px; }
+.social-links .platform-logo { width: 24px; height: 24px; }
+.music-links a { grid-template-columns: 30px minmax(0,1fr) 18px; }
+.social-links a { grid-template-columns: 28px minmax(0,1fr) 16px; }
+.platform-logo[src*="spotify.png"] { padding: 0 !important; border-radius: 0 !important; background: transparent !important; }
+</style>"""
+        if 'id="neuroteq-platform-logo-refinements"' not in page:
+            page = page.replace("</head>", logo_css + "</head>", 1)
+            logo_index.write_text(page, encoding="utf-8")
