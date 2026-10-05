@@ -565,3 +565,28 @@ if __name__ == "__main__":
         if 'id="neuroteq-platform-logo-refinements"' not in page:
             page = page.replace("</head>", logo_css + "</head>", 1)
             logo_index.write_text(page, encoding="utf-8")
+
+
+# Keep Spotify's black mark on its green disc. The music service glyphs are white
+# on this dark page; invert their one-color PNGs so the negative cutouts read white.
+if __name__ == "__main__":
+    spotify_url = "https://upload.wikimedia.org/wikipedia/commons/a/a7/Spotify-icon.png"
+    try:
+        request = urllib.request.Request(spotify_url, headers={"User-Agent": "NeuroteqSite/1.0", "Accept": "image/png"})
+        with urllib.request.urlopen(request, timeout=20) as response:
+            spotify_png = response.read(1_000_001)
+        if len(spotify_png) <= 1_000_000 and spotify_png.startswith(b"\x89PNG\r\n\x1a\n"):
+            (SITE / "images" / "platform-logos" / "spotify.png").write_bytes(spotify_png)
+    except Exception as exc:
+        print("Could not update Spotify PNG: {}".format(exc))
+
+    logo_index = SITE / "index.html"
+    if logo_index.exists():
+        page = logo_index.read_text(encoding="utf-8")
+        logo_css = """<style id="neuroteq-platform-logo-contrast">
+.platform-logo[src*="apple-music.png"], .platform-logo[src*="youtube-music.png"] { filter: invert(1); }
+.platform-logo[src*="amazon-music.png"] { width: 36px; height: 30px; }
+</style>"""
+        if 'id="neuroteq-platform-logo-contrast"' not in page:
+            page = page.replace("</head>", logo_css + "</head>", 1)
+            logo_index.write_text(page, encoding="utf-8")
