@@ -204,6 +204,18 @@ def main():
 .release-tracks{position:relative}
 a[href="#label-heading"].text-link{display:none!important}
 footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}.tracklist-popover{position:absolute!important;top:calc(100% + 5px)!important;bottom:auto!important;left:0!important;right:auto!important;width:100%!important;max-height:min(480px,calc(100vh - 24px))!important;overflow:auto!important;z-index:10000!important}
+.music-links a[href*="open.spotify.com"]:hover,.social-links a[href*="open.spotify.com"]:hover{color:#1ed760!important}
+.music-links a[href*="music.apple.com"]:hover,.social-links a[href*="music.apple.com"]:hover{color:#fa243c!important}
+.music-links a[href*="soundcloud.com"]:hover,.social-links a[href*="soundcloud.com"]:hover{color:#ff5500!important}
+.music-links a[href*="youtube.com"]:hover,.social-links a[href*="youtube.com"]:hover{color:#ff0033!important}
+.music-links a[href*="tidal.com"]:hover,.social-links a[href*="tidal.com"]:hover{color:#7de8ff!important}
+.music-links a[href*="deezer.com"]:hover,.social-links a[href*="deezer.com"]:hover{color:#b26bff!important}
+.music-links a[href*="amazon.com"]:hover,.social-links a[href*="amazon.com"]:hover{color:#25d1da!important}
+.music-links a[href*="newgrounds.com"]:hover,.social-links a[href*="newgrounds.com"]:hover{color:#ff9900!important}
+.music-links a[href*="instagram.com"]:hover,.social-links a[href*="instagram.com"]:hover{color:#e4405f!important}
+.music-links a[href*="tiktok.com"]:hover,.social-links a[href*="tiktok.com"]:hover{color:#25f4ee!important}
+.music-links a[href*="twitch.tv"]:hover,.social-links a[href*="twitch.tv"]:hover{color:#a970ff!important}
+.music-links a[href*="musixmatch.com"]:hover,.social-links a[href*="musixmatch.com"]:hover{color:#ff5b5b!important}
 </style>
 """
         if 'id="neuroteq-tracklist-layout"' not in html:
