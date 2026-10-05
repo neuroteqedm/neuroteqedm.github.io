@@ -216,7 +216,7 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .music-links a[href*="newgrounds.com"]:hover .platform-name { color: #ff9900; }
 .music-links a[href*="music.apple.com"]:hover .platform-name { color: #fa243c; }
 .music-links a[href*="music.youtube.com"]:hover .platform-name { color: #ff0033; }
-.music-links a[href*="amazon.com"]::before { background-image: url("https://cdn.simpleicons.org/amazonmusic/25D1DA"); }
+.music-links a[href*="amazon.com"]::before { background-image: url("https://api.iconify.design/simple-icons/amazonmusic.svg?color=%2325d1da"); }
 .music-links a:hover::before { transform: scale(1.12); }
 .social-links { gap: 10px 22px; }
 .social-links li, .social-links li:hover { border: 0 !important; border-radius: 0 !important; background: transparent !important; padding: 0 !important; }
