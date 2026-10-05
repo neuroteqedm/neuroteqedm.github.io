@@ -180,8 +180,9 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .hero-avatar-frame img { border-radius: inherit; }
 .genres li { border: 1px solid #49394f; border-radius: 10px; padding: 3px 11px; }
 .genres ul { gap: 7px; }
-.release { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 12px; }
-.release-art { border-radius: 8px; }
+.release { border: 0; border-radius: 0; background: transparent; padding: 0; box-shadow: none; }
+.release-art { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 8px; box-sizing: border-box; }
+.release-art img { border-radius: 8px; }
 .release-meta { margin-top: 14px; }
 .tracklist-head h4 { font-size: 1.2rem; }
 .tracklist-songs a { min-height: 64px; padding: 15px 16px; }
@@ -208,7 +209,7 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .site-footer a { border-radius: 6px; padding-inline: 11px; transition: color .18s ease, background-color .18s ease; }
 .site-footer a:hover { background: #1a151e; }
 @media (max-width:760px) {
-  .release { border-radius: 10px; padding: 9px; }
+  .release { border-radius: 0; padding: 0; }
   .music-links { gap: 8px; }
   .music-links a { min-height: 70px; padding: 11px; }
   .social-links { gap: 8px; }
