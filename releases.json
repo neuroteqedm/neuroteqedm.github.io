@@ -1,6 +1,7 @@
 [
   {
     "id": "7cX3KEoBXV563ouuaoDkBN",
+    "type": "single",
     "title": "Exponent",
     "date": "2026-09-22",
     "artists": [
@@ -52,15 +53,16 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/2laycfrgl5M0A8oEJZ3cjc"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "79P2APc0VfivF7i3Ei0nZ8",
+    "type": "album",
     "title": "Toxicosis",
     "date": "2026-09-06",
     "artists": [
-      "Neuroteq"
+      "Neuroteq",
+      "GonL"
     ],
     "url": "https://open.spotify.com/album/79P2APc0VfivF7i3Ei0nZ8",
     "cover": "https://i.scdn.co/image/ab67616d0000b273a929f209b2a22b72f047740f",
@@ -224,15 +226,16 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/1jBrG94Ue94pOZ4oIeYg39"
       }
-    ],
-    "type": "album"
+    ]
   },
   {
     "id": "6mBbyIPFJ8FEpnRxs0nWtJ",
+    "type": "single",
     "title": "Syntax",
     "date": "2026-08-26",
     "artists": [
-      "Neuroteq"
+      "Neuroteq",
+      "GonL"
     ],
     "url": "https://open.spotify.com/album/6mBbyIPFJ8FEpnRxs0nWtJ",
     "cover": "https://i.scdn.co/image/ab67616d0000b27328762710bd68cb2230bf4c37",
@@ -253,11 +256,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/0voQWFdOmEijmIMmexrrE4"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "3i6nnqXlzh7epjyIsLZ3fu",
+    "type": "single",
     "title": "Spirit",
     "date": "2026-08-19",
     "artists": [
@@ -279,11 +282,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/0eJgTKRv7UKlqBcRfZh23R"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "0KJhy0YYLAw1zf292tvtQg",
+    "type": "single",
     "title": "Resperance",
     "date": "2026-08-10",
     "artists": [
@@ -305,11 +308,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/2m2kH2aiStOeWW5uQCVAf8"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "0daLMbG30Mfr2FmLMU56hs",
+    "type": "single",
     "title": "Disequilibrium",
     "date": "2026-08-03",
     "artists": [
@@ -331,11 +334,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/3OtIT9LtUv9HTCOECq80uQ"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "6VjRwPP5sr74HmjGFEtMwS",
+    "type": "single",
     "title": "Revenge",
     "date": "2026-06-25",
     "artists": [
@@ -357,11 +360,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/3c4DUpmcKyf7NutZg3v0X3"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "4lohqXltMgMRo0iIbWrS2V",
+    "type": "single",
     "title": "some recorded stuff",
     "date": "2026-06-10",
     "artists": [
@@ -448,11 +451,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/343vk5Wr5mmqeXhE144k22"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "3ayZYQHGeYs932EP9wK4ZH",
+    "type": "single",
     "title": "No Mercy",
     "date": "2026-06-08",
     "artists": [
@@ -474,11 +477,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/0I2ykQL65TM40uqbDtbXej"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "6mELXj4rauo6BUhZUk57o7",
+    "type": "single",
     "title": "Willpower",
     "date": "2026-06-06",
     "artists": [
@@ -500,11 +503,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/6Q5lIzIPjoolnqNgiKhk9K"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "6MD1uPeQdqeo6JohvrYFea",
+    "type": "single",
     "title": "santa claus",
     "date": "2026-05-27",
     "artists": [
@@ -526,11 +529,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/6mYXFEMZUofBdwckUVlM5R"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "1LJONn5kD433W8bC3O28w5",
+    "type": "single",
     "title": "Stereo Madness (Rock Version)",
     "date": "2026-05-05",
     "artists": [
@@ -552,11 +555,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/3lo7estmu0jZkoPqbIagZm"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "7CSNlwTy6AMFPbNqbm5M1e",
+    "type": "single",
     "title": "Космос",
     "date": "2026-04-28",
     "artists": [
@@ -630,11 +633,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/4ycFCCy1SjdvnBO77NOOsM"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "74yqLcUE6R6VHEnZNyJw3w",
+    "type": "single",
     "title": "Rectangle",
     "date": "2026-04-20",
     "artists": [
@@ -656,11 +659,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/6vkr5iAcInaZDveiFf2m6g"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "6w74rzUTiJG8oyMp5SoejH",
+    "type": "album",
     "title": "Xy7_ambient01",
     "date": "2026-04-10",
     "artists": [
@@ -773,11 +776,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/4Htiov1CtM7NJN6pXWT3P0"
       }
-    ],
-    "type": "album"
+    ]
   },
   {
     "id": "0fxqlFcwb0jYCuCpBiV0fQ",
+    "type": "album",
     "title": "kill the frequency",
     "date": "2026-03-17",
     "artists": [
@@ -916,11 +919,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/5bYkmW5z8xCGNxe1IRSRyL"
       }
-    ],
-    "type": "album"
+    ]
   },
   {
     "id": "2BOkZCh41omODr7k9xCBY8",
+    "type": "single",
     "title": "03:17",
     "date": "2026-03-07",
     "artists": [
@@ -942,15 +945,16 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/3xQ6w2aFCp9tI9g9rNMzmZ"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "7iWiV9ANefIT6PhcYqSpKR",
+    "type": "album",
     "title": "Average 2016x, Pt. 3",
     "date": "2026-02-14",
     "artists": [
-      "Neuroteq"
+      "Neuroteq",
+      "Zoink"
     ],
     "url": "https://open.spotify.com/album/7iWiV9ANefIT6PhcYqSpKR",
     "cover": "https://i.scdn.co/image/ab67616d0000b273cb6610b4ec92c4913ac94f5a",
@@ -1101,11 +1105,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/7DZaAD5tIAa4JXm5AEL9Aq"
       }
-    ],
-    "type": "album"
+    ]
   },
   {
     "id": "4InGYW5uHGUIEltDhKM5G7",
+    "type": "album",
     "title": "Average 2016x, Pt. 2",
     "date": "2026-01-27",
     "artists": [
@@ -1205,11 +1209,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/6hHqqI8AbhVXPJCljzFMMF"
       }
-    ],
-    "type": "album"
+    ]
   },
   {
     "id": "0A6XTTh8Q61WuVadlxFRc1",
+    "type": "single",
     "title": "experimental",
     "date": "2025-10-03",
     "artists": [
@@ -1296,11 +1300,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/3akMT3voHXKMKG0WWypYjw"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "5Xo7tUtJBjWZ3WdA8Hp9zE",
+    "type": "album",
     "title": "Заборы, ворота, калитки",
     "date": "2025-09-26",
     "artists": [
@@ -1413,11 +1417,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/1S609soaFKbVkGW2IIMSHm"
       }
-    ],
-    "type": "album"
+    ]
   },
   {
     "id": "2EkvgLefLRgZaJsGzMX22e",
+    "type": "single",
     "title": "Oh, Fuck",
     "date": "2025-08-31",
     "artists": [
@@ -1439,11 +1443,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/6sFCfgHgZOQpmc1yT8Xo4g"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "0ZZ27xeU7KPrAC6PKJN4Cj",
+    "type": "single",
     "title": "under the cover",
     "date": "2025-08-14",
     "artists": [
@@ -1491,11 +1495,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/19BzoPIWYUngtImRFKABvX"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "0fCWnC8bXgpDayuOeIBrUW",
+    "type": "single",
     "title": "Average 2016x",
     "date": "2025-02-25",
     "artists": [
@@ -1569,11 +1573,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/57NVRuX5AGMqNaYPa9yJPz"
       }
-    ],
-    "type": "single"
+    ]
   },
   {
     "id": "35JpucjhKsTR1BrRWcsReW",
+    "type": "album",
     "title": "Selected Ambient Works 50-60x",
     "date": "2025-02-08",
     "artists": [
@@ -1686,11 +1690,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/4qacSnMgMRMa1Y22cjwOAd"
       }
-    ],
-    "type": "album"
+    ]
   },
   {
     "id": "3qGnpkb2NwVyryoZ51e8Vn",
+    "type": "album",
     "title": "ИЛЛЮЗИЯ...",
     "date": "2023-08-11",
     "artists": [
@@ -1829,11 +1833,11 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/1xhlSn2Q47yFqcT1MCifAG"
       }
-    ],
-    "type": "album"
+    ]
   },
   {
     "id": "0uRlcJoKnLBYnJ0bRCYO3w",
+    "type": "album",
     "title": "электроДОМ",
     "date": "2023-08-09",
     "artists": [
@@ -1998,7 +2002,6 @@
         "disc": 1,
         "url": "https://open.spotify.com/track/33b7mGpFTaIdRq3uM3Tp3B"
       }
-    ],
-    "type": "album"
+    ]
   }
 ]
