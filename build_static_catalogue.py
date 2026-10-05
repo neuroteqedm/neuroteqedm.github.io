@@ -180,9 +180,8 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .hero-avatar-frame img { border-radius: inherit; }
 .genres li { border: 1px solid #49394f; border-radius: 10px; padding: 3px 11px; }
 .genres ul { gap: 7px; }
-.release { border: 0; border-radius: 0; background: transparent; padding: 0; box-shadow: none; }
-.release-art { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 8px; box-sizing: border-box; }
-.release-art img { border-radius: 8px; }
+.release { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 12px; }
+.release-art { border-radius: 8px; }
 .release-meta { margin-top: 14px; }
 .tracklist-head h4 { font-size: 1.2rem; }
 .tracklist-songs a { min-height: 64px; padding: 15px 16px; }
@@ -196,10 +195,21 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .release-tabs .release-tab[data-state=active] { background: #1a151e; border-color: #49394f; }
 .release-tabs .release-tab:after { display: none; }
 .show-releases { border-radius: 8px; }
-.music-links { border: 0; gap: 10px; }
-.music-links li { border: 1px solid #302a35; border-radius: 12px; background: #100e12; overflow: hidden; transition: border-color .2s ease, background-color .2s ease; }
-.music-links li:hover { border-color: #57405f; background: #151119; }
-.music-links a { min-height: 76px; border-radius: inherit; padding: 13px 15px; }
+.music-links { border: 0; gap: 10px 22px; }
+.music-links li, .music-links li:hover { border: 0; border-radius: 0; background: transparent; overflow: visible; }
+.music-links a { grid-template-columns: 24px minmax(0,1fr) 18px; align-items: center; column-gap: 10px; min-height: 60px; padding: 8px 0; border-radius: 0; }
+.music-links a::before { content: ""; display: block; width: 22px; height: 22px; grid-column: 1; grid-row: 1 / span 2; align-self: center; background-position: center; background-repeat: no-repeat; background-size: contain; }
+.music-links a .platform-name { grid-column: 2; grid-row: 1; }
+.music-links a .platform-detail { grid-column: 2; grid-row: 2; }
+.music-links a > svg { grid-column: 3; grid-row: 1 / span 2; }
+.music-links a[href*="spotify.com"]::before { background-image: url("https://cdn.simpleicons.org/spotify/1ED760"); }
+.music-links a[href*="music.apple.com"]::before { background-image: url("https://cdn.simpleicons.org/applemusic/FA243C"); }
+.music-links a[href*="soundcloud.com"]::before { background-image: url("https://cdn.simpleicons.org/soundcloud/FF5500"); }
+.music-links a[href*="music.youtube.com"]::before { background-image: url("https://cdn.simpleicons.org/youtubemusic/FF0033"); }
+.music-links a[href*="tidal.com"]::before { background-image: url("https://cdn.simpleicons.org/tidal/FFFFFF"); }
+.music-links a[href*="deezer.com"]::before { background-image: url("https://cdn.simpleicons.org/deezer/EF5466"); }
+.music-links a[href*="amazon.com"]::before { background-image: url("https://cdn.simpleicons.org/amazonmusic/25D1DA"); }
+.music-links a[href*="newgrounds.com"]::before { background-image: url("https://cdn.simpleicons.org/newgrounds/FF9900"); }
 .social-links { gap: 10px; }
 .social-links li { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 0 14px; transition: border-color .2s ease, background-color .2s ease; }
 .social-links li:hover { border-color: #57405f; background: #151119; }
@@ -209,9 +219,9 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .site-footer a { border-radius: 6px; padding-inline: 11px; transition: color .18s ease, background-color .18s ease; }
 .site-footer a:hover { background: #1a151e; }
 @media (max-width:760px) {
-  .release { border-radius: 0; padding: 0; }
-  .music-links { gap: 8px; }
-  .music-links a { min-height: 70px; padding: 11px; }
+  .release { border-radius: 10px; padding: 9px; }
+  .music-links { gap: 8px 14px; }
+  .music-links a { min-height: 54px; padding: 7px 0; }
   .social-links { gap: 8px; }
   .social-links li { padding-inline: 11px; }
   .label-note { padding: 18px; }
