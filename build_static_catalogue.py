@@ -153,7 +153,7 @@ def main():
             flags=re.S,
         )
         html = re.sub(
-            r'<a href="https://query-records\.backzone99\.chatgpt\.site">Query Records</a>'
+            r'<a href="https://query-records\.backzone99\.chatgpt\.site">Query Records</a>',
             "Query Records",
             html,
             count=1,
