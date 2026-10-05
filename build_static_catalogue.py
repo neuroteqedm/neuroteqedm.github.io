@@ -13,9 +13,33 @@ from pathlib import Path
 
 
 
+
+
+
+
+
+
+
+
 ROOT = Path(__file__).resolve().parent
 SITE = Path.cwd() / "_site"
 RELEASES_FILE = ROOT / "releases.json"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -70,6 +94,22 @@ def save_artwork(release):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def normalize_track(track, release, index):
     if isinstance(track, str):
         return {
@@ -106,12 +146,36 @@ def normalize_track(track, release, index):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def patch_exported_site():
     chunks = SITE / "_next" / "static" / "chunks"
     old_name = "layout-segment-context-D-I1VA2F.js"
     new_name = "layout-context-D-I1VA2F.js"
     old_chunk = chunks / old_name
     new_chunk = chunks / new_name
+
+
+
+
+
+
+
+
 
 
 
@@ -135,6 +199,14 @@ def patch_exported_site():
             "var n=()=>null;",
         )
         new_chunk.write_text(chunk_text, encoding="utf-8")
+
+
+
+
+
+
+
+
 
 
 
@@ -180,10 +252,34 @@ def patch_exported_site():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def main():
     releases = json.loads(RELEASES_FILE.read_text(encoding="utf-8"))
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
         artwork_urls = list(pool.map(save_artwork, releases))
+
+
+
+
+
+
+
+
 
 
 
@@ -220,6 +316,14 @@ def main():
             "releaseId": release["id"],
             "tracks": tracks,
         }, ensure_ascii=False), encoding="utf-8")
+
+
+
+
+
+
+
+
 
 
 
@@ -269,38 +373,39 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .music-links a[href*="twitch.tv"]:hover,.social-links a[href*="twitch.tv"]:hover{color:#a970ff!important}
 .music-links a[href*="musixmatch.com"]:hover,.social-links a[href*="musixmatch.com"]:hover{color:#ff5b5b!important}
 
+
 /* Softer corners across the site */
 :root { --radius: 14px; }
 .hero-avatar-frame { border-radius: 50%; }
 .hero-avatar-frame img { border-radius: inherit; }
-.genres li { border: 1px solid #49394f; border-radius: 999px; padding: 3px 11px; }
+.genres li { border: 1px solid #49394f; border-radius: 6px; padding: 3px 11px; }
 .genres ul { gap: 7px; }
-.release { border: 1px solid #302a35; border-radius: 16px; background: #100e12; padding: 12px; }
-.release-art { border-radius: 12px; }
+.release { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 12px; }
+.release-art { border-radius: 8px; }
 .release-meta { margin-top: 14px; }
-.tracklist-popover { border-radius: 16px; overflow: hidden; }
-.tracklist-head { border-radius: 15px 15px 0 0; }
+.tracklist-popover { border-radius: 12px; overflow: hidden; }
+.tracklist-head { border-radius: 11px 11px 0 0; }
 .tracklist-close { border-radius: 50%; transition: color .18s ease, background-color .18s ease; }
 .tracklist-close:hover { background: #2b1d31; }
 .release-tabs .release-tab-list { border: 0; gap: 8px; margin-bottom: 22px; }
-.release-tabs .release-tab { min-height: 40px; border: 1px solid transparent; border-radius: 999px; padding: 7px 14px; transition: color .18s ease, background-color .18s ease, border-color .18s ease; }
+.release-tabs .release-tab { min-height: 40px; border: 1px solid transparent; border-radius: 8px; padding: 7px 14px; transition: color .18s ease, background-color .18s ease, border-color .18s ease; }
 .release-tabs .release-tab[data-state=active] { background: #1a151e; border-color: #49394f; }
 .release-tabs .release-tab:after { display: none; }
-.show-releases { border-radius: 999px; }
+.show-releases { border-radius: 8px; }
 .music-links { border: 0; gap: 10px; }
-.music-links li { border: 1px solid #302a35; border-radius: 12px; background: #100e12; overflow: hidden; transition: border-color .2s ease, background-color .2s ease; }
+.music-links li { border: 1px solid #302a35; border-radius: 8px; background: #100e12; overflow: hidden; transition: border-color .2s ease, background-color .2s ease; }
 .music-links li:hover { border-color: #57405f; background: #151119; }
 .music-links a { min-height: 76px; border-radius: inherit; padding: 13px 15px; }
 .social-links { gap: 10px; }
-.social-links li { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 0 14px; transition: border-color .2s ease, background-color .2s ease; }
+.social-links li { border: 1px solid #302a35; border-radius: 8px; background: #100e12; padding: 0 14px; transition: border-color .2s ease, background-color .2s ease; }
 .social-links li:hover { border-color: #57405f; background: #151119; }
 .social-links a { min-height: 72px; }
-.label-note { border: 1px solid #49394f; border-left: 2px solid var(--accent); border-radius: 14px; background: #100e12; padding: 22px; }
+.label-note { border: 1px solid #49394f; border-left: 2px solid var(--accent); border-radius: 10px; background: #100e12; padding: 22px; }
 .timeline li:before { border-radius: 50%; }
-.site-footer a { border-radius: 999px; padding-inline: 11px; transition: color .18s ease, background-color .18s ease; }
+.site-footer a { border-radius: 6px; padding-inline: 11px; transition: color .18s ease, background-color .18s ease; }
 .site-footer a:hover { background: #1a151e; }
 @media (max-width:760px) {
-  .release { border-radius: 14px; padding: 9px; }
+  .release { border-radius: 10px; padding: 9px; }
   .music-links { gap: 8px; }
   .music-links a { min-height: 70px; padding: 11px; }
   .social-links { gap: 8px; }
@@ -323,7 +428,31 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 
 
 
+
+
+
+
+
+
+
+
     patch_exported_site()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
