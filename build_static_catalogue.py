@@ -470,3 +470,38 @@ if __name__ == "__main__":
     if "neuroteq-platform-logo-injector" not in rendered_html:
         rendered_html = rendered_html.replace("</body>", logo_script + "</body>", 1)
         rendered_index.write_text(rendered_html, encoding="utf-8")
+
+
+# Replace site favicons with platform brand marks and keep the PNGs local.
+if __name__ == "__main__":
+    import cairosvg
+
+    def download_official_png(item):
+        name, (icon, color) = item
+        url = "https://cdn.simpleicons.org/{}/{}".format(icon, color)
+        try:
+            request = urllib.request.Request(url, headers={"User-Agent": "NeuroteqSite/1.0", "Accept": "image/svg+xml"})
+            with urllib.request.urlopen(request, timeout=20) as response:
+                svg = response.read(250_001)
+            if len(svg) > 250_000 or b"<svg" not in svg[:1000].lower():
+                return name, False
+            png = cairosvg.svg2png(bytestring=svg, output_width=128, output_height=128)
+            if not png.startswith(b"\x89PNG\r\n\x1a\n"):
+                return name, False
+            (SITE / "images" / "platform-logos" / (name + ".png")).write_bytes(png)
+            return name, True
+        except Exception as exc:
+            print("Could not create official {} PNG: {}".format(name, exc))
+            return name, False
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+        official_results = dict(pool.map(download_official_png, PLATFORM_LOGOS.items()))
+    missing_official = sorted(name for name, ok in official_results.items() if not ok)
+    print("Built {}/{} official brand PNGs.".format(sum(official_results.values()), len(PLATFORM_LOGOS)))
+    if missing_official:
+        print("Could not build: {}".format(", ".join(missing_official)))
+    logo_index = SITE / "index.html"
+    if logo_index.exists():
+        page = logo_index.read_text(encoding="utf-8")
+        page = page.replace("https://cdn.simpleicons.org/newgrounds/ff9900", "/images/platform-logos/newgrounds.png")
+        logo_index.write_text(page, encoding="utf-8")
