@@ -166,7 +166,7 @@ def main():
 .release:has(.tracklist-popover) .release-tracks{padding-bottom:min(480px,calc(100vh - 24px))}
 a[href="#label-heading"].text-link{display:none!important}
 footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:inherit}
-.tracklist-popover{position:absolute!important;top:calc(100% + 10px)!important;bottom:auto!important;left:0!important;right:auto!important;width:min(360px,100%,calc(100vw - 32px))!important;max-height:min(480px,calc(100vh - 24px))!important;z-index:50!important}
+.tracklist-popover{position:absolute!important;top:calc(100% + 10px - min(480px,calc(100vh - 24px)))!important;bottom:auto!important;left:0!important;right:auto!important;width:min(360px,100%,calc(100vw - 32px))!important;max-height:min(480px,calc(100vh - 24px))!important;z-index:50!important}
 </style>
 """
         if 'id="neuroteq-tracklist-layout"' not in html:
