@@ -417,3 +417,56 @@ a:focus-visible, button:focus-visible { outline: 2px solid #df35fa; outline-offs
 
 if __name__ == "__main__":
     main()
+
+
+# React renders the platform links after loading this HTML shell. Insert their
+# image assets after the links exist, then keep them if React redraws that block.
+if __name__ == "__main__":
+    rendered_index = SITE / "index.html"
+    rendered_html = rendered_index.read_text(encoding="utf-8")
+    logo_assets = {
+        name: "/images/platform-logos/{}.png".format(name)
+        for name in PLATFORM_LOGOS
+        if (SITE / "images" / "platform-logos" / (name + ".png")).is_file()
+    }
+    logo_assets.setdefault("newgrounds", "https://cdn.simpleicons.org/newgrounds/ff9900")
+    logo_script = """<script id="neuroteq-platform-logo-injector">
+(() => {
+  const assets = __ASSETS__;
+  const platform = (host) => {
+    if (host === "music.youtube.com") return "youtube-music";
+    if (host === "music.apple.com") return "apple-music";
+    if (host === "open.spotify.com") return "spotify";
+    if (host.endsWith("soundcloud.com")) return "soundcloud";
+    if (host.endsWith("tidal.com")) return "tidal";
+    if (host.endsWith("deezer.com")) return "deezer";
+    if (host.endsWith("amazon.com")) return "amazon-music";
+    if (host.endsWith("newgrounds.com")) return "newgrounds";
+    if (host.endsWith("youtube.com")) return "youtube";
+    if (host.endsWith("instagram.com")) return "instagram";
+    if (host.endsWith("tiktok.com")) return "tiktok";
+    if (host.endsWith("twitch.tv")) return "twitch";
+    if (host.endsWith("musixmatch.com")) return "musixmatch";
+    return null;
+  };
+  const addLogos = () => document.querySelectorAll(".music-links a[href], .social-links a[href]").forEach((link) => {
+    if (link.querySelector("img.platform-logo")) return;
+    let name;
+    try { name = platform(new URL(link.href, location.href).hostname); } catch (_) { return; }
+    if (!name || !assets[name]) return;
+    const image = document.createElement("img");
+    image.className = "platform-logo";
+    image.src = assets[name];
+    image.width = 22;
+    image.height = 22;
+    image.alt = "";
+    image.setAttribute("aria-hidden", "true");
+    link.insertBefore(image, link.firstChild);
+  });
+  addLogos();
+  new MutationObserver(addLogos).observe(document.body, { childList: true, subtree: true });
+})();
+</script>""".replace("__ASSETS__", json.dumps(logo_assets, separators=(",", ":")))
+    if "neuroteq-platform-logo-injector" not in rendered_html:
+        rendered_html = rendered_html.replace("</body>", logo_script + "</body>", 1)
+        rendered_index.write_text(rendered_html, encoding="utf-8")
