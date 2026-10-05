@@ -84,6 +84,8 @@ def patch_exported_site():
         old_name: new_name,
         "https://neuroteq.xyz/": "https://backzone99.tb.ru/",
         "https://music.apple.com/ru/artist/backzone99/1715799081": "https://music.apple.com/us/artist/neuroteq/6811395218",
+        "https://query-records.backzone99.chatgpt.site": "#label-heading",
+        r'\"className\":\"social-handle\",\"children\":\"backzone99\"': r'\"className\":\"social-handle\",\"children\":\"neuroteq\"',
         "https://musixmatch.com/artist/backzone99": "https://musixmatch.com/artist/neuroteq",
     }
     for path in SITE.rglob("*"):
