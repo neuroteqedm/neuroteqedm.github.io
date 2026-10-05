@@ -275,7 +275,8 @@ a, button { transition: color .18s ease, background-color .18s ease, border-colo
 
 /* Noticeable, lightweight feedback for controls across the page */
 a, button { transform-origin: center; }
-a:hover { text-decoration-color: currentColor; }
+a:hover { text-decoration-color: currentColor; text-shadow: 0 0 12px rgba(220,48,247,.32); }
+button:hover { filter: brightness(1.12); }
 a:active, button:active { transform: translateY(0) scale(.97); }
 a:focus-visible, button:focus-visible { outline: 2px solid #df35fa; outline-offset: 4px; }
 .music-links a, .social-links a, .site-footer a, .release-link, .show-releases, .tracklist-spotify, .release-tabs .release-tab, .tracklist-close { transform: translateY(0); transition: transform .2s cubic-bezier(.2,.7,.2,1), color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease; }
