@@ -628,3 +628,16 @@ if __name__ == "__main__":
         if 'id="neuroteq-spotify-final-mark"' not in page:
             page = page.replace("</head>", logo_css + "</head>", 1)
             logo_index.write_text(page, encoding="utf-8")
+
+
+# Apple Music's favicon is the current full-colour platform mark.
+if __name__ == "__main__":
+    try:
+        apple_url = "https://www.google.com/s2/favicons?domain=music.apple.com&sz=128"
+        request = urllib.request.Request(apple_url, headers={"User-Agent": "NeuroteqSite/1.0", "Accept": "image/png"})
+        with urllib.request.urlopen(request, timeout=20) as response:
+            apple_png = response.read(500_001)
+        if len(apple_png) <= 500_000 and apple_png.startswith(b"\x89PNG\r\n\x1a\n"):
+            (SITE / "images" / "platform-logos" / "apple-music.png").write_bytes(apple_png)
+    except Exception as exc:
+        print("Could not update Apple Music logo: {}".format(exc))
