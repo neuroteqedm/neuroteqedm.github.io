@@ -160,7 +160,8 @@ def main():
             '<span>Musixmatch</span><span class="social-handle">neuroteq</span>',
         )
         tracklist_css = """
-<style id="neuroteq-tracklist-layout">.release:has(.tracklist-popover){position:relative;z-index:5}body:has(.tracklist-popover) .release{display:flex;height:100%;flex-direction:column;justify-content:space-between}
+<style id="neuroteq-tracklist-layout">.release:has(.tracklist-popover){position:relative;z-index:5}body:has(.tracklist-popover) .release{display:flex;height:100%;flex-direction:column}
+body:has(.tracklist-popover) .release-meta{margin-top:auto}
 .release-tracks{position:relative}
 .release:has(.tracklist-popover) .release-tracks{padding-bottom:min(480px,calc(100vh - 24px))}
 a[href="#label-heading"].text-link{display:none!important}
