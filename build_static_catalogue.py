@@ -176,7 +176,7 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 
 /* Softer corners across the site */
 :root { --radius: 14px; }
-.hero-avatar-frame { border-radius: 12px; }
+.hero-avatar-frame { border-radius: 16px; }
 .hero-avatar-frame img { border-radius: inherit; }
 .genres li { border: 1px solid #49394f; border-radius: 10px; padding: 3px 11px; }
 .genres ul { gap: 7px; }
@@ -202,18 +202,29 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .music-links a .platform-name { grid-column: 2; grid-row: 1; }
 .music-links a .platform-detail { grid-column: 2; grid-row: 2; }
 .music-links a > svg { grid-column: 3; grid-row: 1 / span 2; }
-.music-links a[href*="spotify.com"]::before { background-image: url("https://cdn.simpleicons.org/spotify/1ED760"); }
-.music-links a[href*="music.apple.com"]::before { background-image: url("https://cdn.simpleicons.org/applemusic/FA243C"); }
-.music-links a[href*="soundcloud.com"]::before { background-image: url("https://cdn.simpleicons.org/soundcloud/FF5500"); }
-.music-links a[href*="music.youtube.com"]::before { background-image: url("https://cdn.simpleicons.org/youtubemusic/FF0033"); }
-.music-links a[href*="tidal.com"]::before { background-image: url("https://cdn.simpleicons.org/tidal/FFFFFF"); }
-.music-links a[href*="deezer.com"]::before { background-image: url("https://cdn.simpleicons.org/deezer/EF5466"); }
-.music-links a[href*="amazon.com"]::before { background-image: url("https://cdn.simpleicons.org/amazonmusic/25D1DA"); }
-.music-links a[href*="newgrounds.com"]::before { background-image: url("https://cdn.simpleicons.org/newgrounds/FF9900"); }
-.social-links { gap: 10px; }
-.social-links li { border: 1px solid #302a35; border-radius: 12px; background: #100e12; padding: 0 14px; transition: border-color .2s ease, background-color .2s ease; }
-.social-links li:hover { border-color: #57405f; background: #151119; }
-.social-links a { min-height: 72px; }
+.music-links a::before { background-repeat: no-repeat; background-position: center; background-size: contain; transition: transform .22s cubic-bezier(.2,.7,.2,1), filter .2s ease; }
+.music-links a[href*="spotify.com"]::before { background-image: radial-gradient(circle, #1ed760 61%, transparent 63%), url("https://cdn.simpleicons.org/spotify/000000"); background-size: 100% 100%, 75% 75%; border-radius: 50%; }
+.music-links a[href*="music.apple.com"]::before { background-image: url("https://cdn.simpleicons.org/applemusic/ffffff"); }
+.music-links a[href*="soundcloud.com"]::before { background-image: url("https://cdn.simpleicons.org/soundcloud/ff5500"); }
+.music-links a[href*="soundcloud.com"]:hover .platform-name { color: #ff5500; }
+.music-links a[href*="music.youtube.com"]::before { background-image: url("https://cdn.simpleicons.org/youtubemusic/ffffff"); }
+.music-links a[href*="tidal.com"]::before { background-image: url("https://cdn.simpleicons.org/tidal/ffffff"); }
+.music-links a[href*="tidal.com"]:hover .platform-name { color: #ffffff; }
+.music-links a[href*="deezer.com"]::before { background-image: url("https://cdn.simpleicons.org/deezer/b26bff"); }
+.music-links a[href*="deezer.com"]:hover .platform-name { color: #b26bff; }
+.music-links a[href*="newgrounds.com"]::before { background-image: url("https://cdn.simpleicons.org/newgrounds/ff9900"); }
+.music-links a[href*="newgrounds.com"]:hover .platform-name { color: #ff9900; }
+.music-links a[href*="music.apple.com"]:hover .platform-name { color: #fa243c; }
+.music-links a[href*="music.youtube.com"]:hover .platform-name { color: #ff0033; }
+.music-links a[href*="amazon.com"]::before { background-color: #25d1da; background-image: none; mask: url("https://cdn.jsdelivr.net/npm/simple-icons@16/icons/amazonmusic.svg") center / contain no-repeat; -webkit-mask: url("https://cdn.jsdelivr.net/npm/simple-icons@16/icons/amazonmusic.svg") center / contain no-repeat; }
+.music-links a:hover::before { transform: scale(1.12); }
+.social-links { gap: 10px 22px; }
+.social-links li, .social-links li:hover { border: 0 !important; border-radius: 0 !important; background: transparent !important; padding: 0 !important; }
+.social-links a { display: grid; grid-template-columns: minmax(0,1fr) 16px; align-items: center; gap: 1px 10px; min-height: 56px; padding: 8px 0; border-radius: 0; transition: color .2s ease, opacity .2s ease; }
+.social-links a > span:first-child { grid-column: 1; grid-row: 1; }
+.social-links a .social-handle { grid-column: 1; grid-row: 2; }
+.social-links a > svg { grid-column: 2; grid-row: 1 / span 2; transition: transform .2s ease, color .2s ease; }
+.social-links a:hover > svg { transform: translate(2px,-2px); }
 .label-note { border: 1px solid #49394f; border-left: 2px solid var(--accent); border-radius: 16px; background: #100e12; padding: 22px; }
 .timeline li:before { border-radius: 50%; }
 .site-footer a { border-radius: 6px; padding-inline: 11px; transition: color .18s ease, background-color .18s ease; }
@@ -239,7 +250,7 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
 .music-links a[href*="amazon.com"]:hover .platform-name { color: #25d1da; }
 .music-links a[href*="newgrounds.com"]:hover .platform-name { color: #ff9900; }
 @media (prefers-reduced-motion: reduce) {
-  .music-links a, .music-links a::before, .music-links a > svg, .social-links li, .release-tabs .release-tab, .tracklist-close, .site-footer a { transition: none; }
+  .music-links a, .music-links a::before, .music-links a > svg, .social-links li, .social-links a, .social-links a::before, .social-links a > svg, .release-tabs .release-tab, .tracklist-close, .site-footer a { transition: none; }
 }
 </style>
 """
