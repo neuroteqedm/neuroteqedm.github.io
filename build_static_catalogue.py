@@ -603,3 +603,28 @@ if __name__ == "__main__":
         if 'id="neuroteq-platform-logo-visible"' not in page:
             page = page.replace("</head>", logo_css + "</head>", 1)
             logo_index.write_text(page, encoding="utf-8")
+
+
+# Render the Spotify mark in its familiar black-on-green treatment.
+if __name__ == "__main__":
+    try:
+        spotify_url = "https://cdn.simpleicons.org/spotify/000000"
+        request = urllib.request.Request(spotify_url, headers={"User-Agent": "NeuroteqSite/1.0", "Accept": "image/svg+xml"})
+        with urllib.request.urlopen(request, timeout=20) as response:
+            spotify_svg = response.read(250_001)
+        if len(spotify_svg) <= 250_000 and b"<svg" in spotify_svg[:1000].lower():
+            spotify_png = cairosvg.svg2png(bytestring=spotify_svg, output_width=128, output_height=128)
+            if spotify_png.startswith(b"\x89PNG\r\n\x1a\n"):
+                (SITE / "images" / "platform-logos" / "spotify.png").write_bytes(spotify_png)
+    except Exception as exc:
+        print("Could not update Spotify brand mark: {}".format(exc))
+
+    logo_index = SITE / "index.html"
+    if logo_index.exists():
+        page = logo_index.read_text(encoding="utf-8")
+        logo_css = """<style id="neuroteq-spotify-final-mark">
+.platform-logo[src*=\"spotify.png\"] { box-sizing:border-box; width:26px!important; height:26px!important; padding:3px!important; border-radius:50%!important; background:#1ed760!important; object-fit:contain; filter:none!important; }
+</style>"""
+        if 'id="neuroteq-spotify-final-mark"' not in page:
+            page = page.replace("</head>", logo_css + "</head>", 1)
+            logo_index.write_text(page, encoding="utf-8")
