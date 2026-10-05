@@ -226,8 +226,20 @@ footer a[href="#label-heading"]{pointer-events:none;text-decoration:none;color:i
   .social-links li { padding-inline: 11px; }
   .label-note { padding: 18px; }
 }
+.music-links a, .music-links a .platform-name, .music-links a .platform-detail, .music-links a > svg { transition: color .2s ease, opacity .2s ease, transform .2s ease; }
+.music-links a::before { transition: transform .22s cubic-bezier(.2,.7,.2,1), opacity .2s ease; }
+.music-links a:hover::before { transform: scale(1.12); }
+.music-links a:hover > svg { transform: translate(2px,-2px); }
+.music-links a[href*="spotify.com"]:hover .platform-name { color: #1ed760; }
+.music-links a[href*="music.apple.com"]:hover .platform-name { color: #fa243c; }
+.music-links a[href*="soundcloud.com"]:hover .platform-name { color: #ff5500; }
+.music-links a[href*="youtube.com"]:hover .platform-name { color: #ff0033; }
+.music-links a[href*="tidal.com"]:hover .platform-name { color: #7de8ff; }
+.music-links a[href*="deezer.com"]:hover .platform-name { color: #b26bff; }
+.music-links a[href*="amazon.com"]:hover .platform-name { color: #25d1da; }
+.music-links a[href*="newgrounds.com"]:hover .platform-name { color: #ff9900; }
 @media (prefers-reduced-motion: reduce) {
-  .music-links li, .social-links li, .release-tabs .release-tab, .tracklist-close, .site-footer a { transition: none; }
+  .music-links a, .music-links a::before, .music-links a > svg, .social-links li, .release-tabs .release-tab, .tracklist-close, .site-footer a { transition: none; }
 }
 </style>
 """
